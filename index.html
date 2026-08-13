@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjadwalan Lazato Cibenda - Jadwal Shift</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .print-card { border: 1px solid #ccc !important; box-shadow: none !important; }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.25s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+    <header class="bg-slate-900 text-white shadow-lg no-print sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2.5 bg-blue-600 rounded-xl shadow-md flex items-center justify-center">
+                    <i data-lucide="calendar" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-white">
+                        Jadwal Kerja
+                    </h1>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 flex-wrap">
+                <button onclick="openWhatsAppModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition shadow-sm">
+                    <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Salin ke WA
+                </button>
+                <button onclick="exportCSV()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition border border-slate-700">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i> Ekspor CSV
+                </button>
+                <button onclick="window.print()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition border border-slate-700">
+                    <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak / PDF
+                </button>
+                <button onclick="openSettingsModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition border border-slate-700">
+                    <i data-lucide="settings" class="w-3.5 h-3.5"></i> Pengaturan
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <div class="flex border-b border-slate-200 mb-6 no-print overflow-x-auto">
+            <button onclick="switchTab('matrix')" id="tab-matrix" class="px-4 py-2.5 font-semibold text-xs border-b-2 border-blue-600 text-blue-600 flex items-center gap-2 whitespace-nowrap">
+                <i data-lucide="table" class="w-4 h-4"></i> Tabel Shift Mingguan
+            </button>
+            <button onclick="switchTab('cards')" id="tab-cards" class="px-4 py-2.5 font-medium text-xs text-slate-500 hover:text-slate-800 border-b-2 border-transparent hover:border-slate-300 flex items-center gap-2 whitespace-nowrap">
+                <i data-lucide="users" class="w-4 h-4"></i> Jadwal Per Karyawan
+            </button>
+            <button onclick="switchTab('forecast')" id="tab-forecast" class="px-4 py-2.5 font-medium text-xs text-slate-500 hover:text-slate-800 border-b-2 border-transparent hover:border-slate-300 flex items-center gap-2 whitespace-nowrap">
+                <i data-lucide="calendar-range" class="w-4 h-4"></i> Ringkasan 4 Minggu
+            </button>
+            <button onclick="switchTab('stats')" id="tab-stats" class="px-4 py-2.5 font-medium text-xs text-slate-500 hover:text-slate-800 border-b-2 border-transparent hover:border-slate-300 flex items-center gap-2 whitespace-nowrap">
+                <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Audit Beban Kerja
+            </button>
+        </div>
+
+        <div id="view-matrix" class="tab-content animate-fade-in">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-card">
+                <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center flex-wrap gap-2">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="layout-grid" class="w-4 h-4 text-blue-600"></i> JADWAL SHIFT MINGGUAN – FIX REVISI
+                        </h2>
+                        <p class="text-xs text-slate-500">Format matriks standar tetap berbasis data revisi tanpa perubahan mingguan</p>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 font-medium border border-emerald-200">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Off
+                        </span>
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 font-medium border border-indigo-200">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500"></span> Shift 1 (00-08)
+                        </span>
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-50 text-amber-700 font-medium border border-amber-200">
+                            <span class="w-2 h-2 rounded-full bg-amber-500"></span> Shift 2 (08-16)
+                        </span>
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 font-medium border border-purple-200">
+                            <span class="w-2 h-2 rounded-full bg-purple-500"></span> Shift 3 (16-00)
+                        </span>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[700px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-semibold border-b border-slate-200">
+                                <th class="py-3 px-4 w-32 border-r border-slate-200">Hari</th>
+                                <th class="py-3 px-4 bg-emerald-50/60 text-emerald-800 w-44 border-r border-slate-200">
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="coffee" class="w-3.5 h-3.5"></i> Off
+                                    </div>
+                                </th>
+                                <th class="py-3 px-4 bg-indigo-50/60 text-indigo-900 border-r border-slate-200">
+                                    <div>Shift 1</div>
+                                    <div class="text-[10px] font-normal text-indigo-600 lowercase">00:00 – 08:00</div>
+                                </th>
+                                <th class="py-3 px-4 bg-amber-50/60 text-amber-900 border-r border-slate-200">
+                                    <div>Shift 2</div>
+                                    <div class="text-[10px] font-normal text-amber-600 lowercase">08:00 – 16:00</div>
+                                </th>
+                                <th class="py-3 px-4 bg-purple-50/60 text-purple-900">
+                                    <div>Shift 3</div>
+                                    <div class="text-[10px] font-normal text-purple-600 lowercase">16:00 – 00:00</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrixTableBody" class="divide-y divide-slate-200 text-sm">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-cards" class="tab-content hidden animate-fade-in">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="employeeCardsContainer">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+
+        <div id="view-forecast" class="tab-content hidden animate-fade-in">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <div class="mb-4">
+                    <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i data-lucide="calendar-range" class="w-5 h-5 text-blue-600"></i> Proyeksi Jadwal 4 Minggu Ke Depan
+                    </h2>
+                    <p class="text-xs text-slate-500">Jadwal tetap konsisten berulang setiap minggunya untuk sebulan penuh.</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                                <th class="py-2.5 px-3 border-r border-slate-200">Karyawan</th>
+                                <th class="py-2.5 px-3 border-r border-slate-200 text-center bg-blue-50/50">Minggu 1</th>
+                                <th class="py-2.5 px-3 border-r border-slate-200 text-center bg-slate-50">Minggu 2</th>
+                                <th class="py-2.5 px-3 border-r border-slate-200 text-center bg-blue-50/50">Minggu 3</th>
+                                <th class="py-2.5 px-3 text-center bg-slate-50">Minggu 4</th>
+                            </tr>
+                        </thead>
+                        <tbody id="forecastTableBody" class="divide-y divide-slate-200">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-stats" class="tab-content hidden animate-fade-in">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="p-3 bg-blue-100 text-blue-600 rounded-xl">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-500 font-medium">Jam Kerja Standar / Mgg</div>
+                        <div class="text-xl font-bold text-slate-800">48 Jam</div>
+                        <div class="text-[10px] text-emerald-600 font-semibold">6 hari kerja × 8 jam</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="p-3 bg-purple-100 text-purple-600 rounded-xl">
+                        <i data-lucide="moon" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-500 font-medium">Sistem Penjadwalan</div>
+                        <div class="text-xl font-bold text-slate-800">Jadwal Fix / Tetap</div>
+                        <div class="text-[10px] text-purple-600 font-semibold">Hari libur & shift tetap konsisten</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="p-3 bg-emerald-100 text-emerald-600 rounded-xl">
+                        <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-500 font-medium">Kualitas Waktu Istirahat</div>
+                        <div class="text-xl font-bold text-emerald-600">Sangat Tinggi</div>
+                        <div class="text-[10px] text-slate-500">Min. 16 - 24 Jam jeda kerja</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <i data-lucide="user-check" class="w-4 h-4 text-blue-600"></i> Distribusi Shift & Hari Libur Per Orang (Minggu Ini)
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                                <th class="py-2.5 px-3">Nama Karyawan</th>
+                                <th class="py-2.5 px-3 text-center">OFF (Libur)</th>
+                                <th class="py-2.5 px-3 text-center">Shift 1 (00-08)</th>
+                                <th class="py-2.5 px-3 text-center">Shift 2 (08-16)</th>
+                                <th class="py-2.5 px-3 text-center">Shift 3 (16-00)</th>
+                                <th class="py-2.5 px-3 text-center">Total Jam Kerja</th>
+                                <th class="py-2.5 px-3 text-center">Status Ergonomi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="statsTableBody" class="divide-y divide-slate-200">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="whatsappModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden animate-fade-in no-print">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i data-lucide="message-square" class="w-5 h-5 text-emerald-600"></i> Format Teks WhatsApp
+                </h3>
+                <button onclick="closeWhatsAppModal()" class="text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">Salin teks rapi di bawah ini untuk dikirim langsung ke grup WhatsApp tim:</p>
+            <textarea id="whatsappTextarea" class="w-full h-64 p-3 border border-slate-300 rounded-xl font-mono text-xs text-slate-800 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-emerald-500" readonly></textarea>
+            <div class="mt-4 flex justify-end gap-2">
+                <button onclick="closeWhatsAppModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl">Batal</button>
+                <button onclick="copyWhatsAppText()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 shadow-sm">
+                    <i data-lucide="copy" class="w-4 h-4"></i> Salin Teks
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden animate-fade-in no-print">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i data-lucide="users" class="w-5 h-5 text-blue-600"></i> Kelola Daftar Karyawan
+                </h3>
+                <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">Masukkan nama 7 karyawan (pisahkan dengan baris baru):</p>
+            <textarea id="staffInputText" class="w-full h-36 p-3 border border-slate-300 rounded-xl font-sans text-xs text-slate-800 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
+            <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-800 mb-4">
+                💡 <strong>Tips:</strong> Sistem memetakan 7 nama ini secara berurutan ke dalam matriks rotasi revisi.
+            </div>
+            <div class="flex justify-between items-center">
+                <button onclick="resetDefaultStaff()" class="text-xs text-rose-600 hover:underline">Reset Default</button>
+                <div class="flex gap-2">
+                    <button onclick="closeSettingsModal()" class="px-3.5 py-2 bg-slate-100 text-slate-700 text-xs font-semibold rounded-xl">Batal</button>
+                    <button onclick="saveStaffList()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-xl shadow-sm">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 text-xs font-medium z-50 transform translate-y-20 opacity-0 transition-all duration-300 no-print">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toastMsg">Notifikasi</span>
+    </div>
+
+    <script>
+        // Default 7 Staff Members matching the exact order in the revised base table
+        // Slot 0: Himawan (Off Senin)
+        // Slot 1: Fauzan  (Off Selasa)
+        // Slot 2: Rifka   (Off Rabu)
+        // Slot 3: Seima   (Off Kamis)
+        // Slot 4: Rifki   (Off Jumat)
+        // Slot 5: Neng    (Off Sabtu)
+        // Slot 6: Annisa  (Off Minggu)
+        const DEFAULT_STAFF = ["Himawan", "Fauzan", "Rifka", "Seima", "Rifki", "Neng", "Annisa"];
+
+        /**
+         * Base Schedule Matrix derived 100% from user's "JADWAL SHIFT MINGGUAN – REVISI" image:
+         * Day 0: Senin
+         * Day 1: Selasa
+         * Day 2: Rabu
+         * Day 3: Kamis
+         * Day 4: Jumat
+         * Day 5: Sabtu
+         * Day 6: Minggu
+         */
+        const BASE_SCHEDULE = [
+            // Day 0: Senin (Off: Himawan | S1: Rifka, Fauzan | S2: Seima, Neng | S3: Rifki, Annisa)
+            { off: [0], shift1: [2, 1], shift2: [3, 5], shift3: [4, 6] },
+            // Day 1: Selasa (Off: Fauzan | S1: Seima, Neng | S2: Rifka, Himawan | S3: Annisa, Rifki)
+            { off: [1], shift1: [3, 5], shift2: [2, 0], shift3: [6, 4] },
+            // Day 2: Rabu (Off: Rifka | S1: Seima, Himawan | S2: Annisa, Rifki | S3: Neng, Fauzan)
+            { off: [2], shift1: [3, 0], shift2: [6, 4], shift3: [5, 1] },
+            // Day 3: Kamis (Off: Seima | S1: Annisa, Himawan | S2: Neng, Rifki | S3: Rifka, Fauzan)
+            { off: [3], shift1: [6, 0], shift2: [5, 4], shift3: [2, 1] },
+            // Day 4: Jumat (Off: Rifki | S1: Neng, Seima | S2: Annisa, Himawan | S3: Rifka, Fauzan)
+            { off: [4], shift1: [5, 3], shift2: [6, 0], shift3: [2, 1] },
+            // Day 5: Sabtu (Off: Neng | S1: Annisa, Rifki | S2: Rifka, Fauzan | S3: Seima, Himawan)
+            { off: [5], shift1: [6, 4], shift2: [2, 1], shift3: [3, 0] },
+            // Day 6: Minggu (Off: Annisa | S1: Rifki, Rifka | S2: Himawan, Neng | S3: Fauzan, Seima)
+            { off: [6], shift1: [4, 2], shift2: [0, 5], shift3: [1, 3] }
+        ];
+
+        const DAYS_ID = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+
+        let state = {
+            staff: [...DEFAULT_STAFF],
+            currentWeekOffset: 0,
+            startDate: getInitialMondayDate(),
+            activeTab: 'matrix'
+        };
+
+        function getInitialMondayDate() {
+            const today = new Date();
+            const day = today.getDay();
+            const diff = today.getDate() - day + (day === 0 ? -6 : 1);
+            const monday = new Date(today.setDate(diff));
+            return monday.toISOString().split('T')[0];
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFromLocalStorage();
+            const datePicker = document.getElementById('startDatePicker');
+            if (datePicker) datePicker.value = state.startDate;
+            renderAll();
+            lucide.createIcons();
+        });
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('shiftHuman_revisi_state');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed.staff && parsed.staff.length === 7) state.staff = parsed.staff;
+                    if (parsed.startDate) state.startDate = parsed.startDate;
+                } catch(e) {
+                    console.error("Failed to load local state", e);
+                }
+            }
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('shiftHuman_revisi_state', JSON.stringify({
+                staff: state.staff,
+                startDate: state.startDate
+            }));
+        }
+
+        /**
+         * Returns the name of the staff member occupying slot `slotIdx`.
+         * Fixed schedule logic (no rolling offset).
+         */
+        function getStaffNameForSlot(slotIdx) {
+            return state.staff[slotIdx];
+        }
+
+        /**
+         * Gets the shift name assigned to `staffIdx` on day `dayIdx`.
+         */
+        function getShiftForStaff(staffIdx, dayIdx) {
+            const baseDay = BASE_SCHEDULE[dayIdx];
+
+            if (baseDay.off.includes(staffIdx)) return "OFF";
+            if (baseDay.shift1.includes(staffIdx)) return "Shift 1";
+            if (baseDay.shift2.includes(staffIdx)) return "Shift 2";
+            if (baseDay.shift3.includes(staffIdx)) return "Shift 3";
+            return "OFF";
+        }
+
+        /**
+         * Generates the weekly schedule object for `weekOffset` (Dates shift, schedule remains fix)
+         */
+        function generateWeeklySchedule(weekOffset = state.currentWeekOffset) {
+            const schedule = [];
+            for (let dayIdx = 0; dayIdx < 7; dayIdx++) {
+                const baseDay = BASE_SCHEDULE[dayIdx];
+                const dayData = {
+                    dayName: DAYS_ID[dayIdx],
+                    dateStr: formatDateOffset(state.startDate, dayIdx + (weekOffset * 7)),
+                    off: baseDay.off.map(s => getStaffNameForSlot(s)),
+                    shift1: baseDay.shift1.map(s => getStaffNameForSlot(s)),
+                    shift2: baseDay.shift2.map(s => getStaffNameForSlot(s)),
+                    shift3: baseDay.shift3.map(s => getStaffNameForSlot(s))
+                };
+                schedule.push(dayData);
+            }
+            return schedule;
+        }
+
+        function renderAll() {
+            updateWeekLabel();
+            renderMatrixTable();
+            renderEmployeeCards();
+            renderForecastTable();
+            renderStatsTable();
+            lucide.createIcons();
+        }
+
+        function updateWeekLabel() {
+            const labelEl = document.getElementById('weekRangeLabel');
+            if (!labelEl) return;
+            const startDateObj = new Date(state.startDate);
+            startDateObj.setDate(startDateObj.getDate() + (state.currentWeekOffset * 7));
+            
+            const endDateObj = new Date(startDateObj);
+            endDateObj.setDate(endDateObj.getDate() + 6);
+
+            const opt = { day: 'numeric', month: 'short', year: 'numeric' };
+            const startFmt = startDateObj.toLocaleDateString('id-ID', opt);
+            const endFmt = endDateObj.toLocaleDateString('id-ID', opt);
+
+            const label = `Minggu ${state.currentWeekOffset >= 0 ? '+' : ''}${state.currentWeekOffset}: ${startFmt} – ${endFmt}`;
+            labelEl.innerText = label;
+        }
+
+        function renderMatrixTable() {
+            const schedule = generateWeeklySchedule(state.currentWeekOffset);
+            const tbody = document.getElementById('matrixTableBody');
+            tbody.innerHTML = '';
+
+            schedule.forEach((day, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = idx % 2 === 0 ? 'bg-white hover:bg-slate-50 transition' : 'bg-slate-50/50 hover:bg-slate-100/60 transition';
+
+                tr.innerHTML = `
+                    <td class="py-3.5 px-4 font-semibold text-slate-800 border-r border-slate-200">
+                        <div>${day.dayName}</div>
+                        <div class="text-[11px] font-normal text-slate-500">${day.dateStr}</div>
+                    </td>
+                    <td class="py-3.5 px-4 bg-emerald-50/30 border-r border-slate-200">
+                        ${renderBadgeList(day.off, 'emerald')}
+                    </td>
+                    <td class="py-3.5 px-4 bg-indigo-50/30 border-r border-slate-200">
+                        ${renderBadgeList(day.shift1, 'indigo')}
+                    </td>
+                    <td class="py-3.5 px-4 bg-amber-50/30 border-r border-slate-200">
+                        ${renderBadgeList(day.shift2, 'amber')}
+                    </td>
+                    <td class="py-3.5 px-4 bg-purple-50/30">
+                        ${renderBadgeList(day.shift3, 'purple')}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderBadgeList(names, color) {
+            const colorMap = {
+                emerald: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+                indigo: 'bg-indigo-100 text-indigo-900 border-indigo-300',
+                amber: 'bg-amber-100 text-amber-900 border-amber-300',
+                purple: 'bg-purple-100 text-purple-900 border-purple-300'
+            };
+            return names.map(n => `
+                <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold border ${colorMap[color]} shadow-xs mr-1 my-0.5">
+                    ${n}
+                </span>
+            `).join('');
+        }
+
+        function renderEmployeeCards() {
+            const container = document.getElementById('employeeCardsContainer');
+            container.innerHTML = '';
+
+            state.staff.forEach((name, staffIdx) => {
+                let cardHtml = `
+                    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-col justify-between print-card">
+                        <div>
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-bold text-sm flex items-center justify-center shadow-sm">
+                                        ${name.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-800 text-sm">${name}</h3>
+                                        <span class="text-[10px] text-emerald-600 font-medium">Jadwal Tetap ✅</span>
+                                    </div>
+                                </div>
+                                <span class="text-[11px] font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded-md">6 Hari Kerja</span>
+                            </div>
+                            
+                            <div class="space-y-1.5">
+                `;
+
+                for (let dayIdx = 0; dayIdx < 7; dayIdx++) {
+                    const shift = getShiftForStaff(staffIdx, dayIdx);
+                    const dayName = DAYS_ID[dayIdx];
+                    
+                    let badgeClass = "bg-emerald-100 text-emerald-800 border-emerald-200";
+                    let label = "OFF (Libur)";
+                    
+                    if (shift === "Shift 1") {
+                        badgeClass = "bg-indigo-100 text-indigo-900 border-indigo-200";
+                        label = "Shift 1 (00:00 - 08:00)";
+                    } else if (shift === "Shift 2") {
+                        badgeClass = "bg-amber-100 text-amber-900 border-amber-200";
+                        label = "Shift 2 (08:00 - 16:00)";
+                    } else if (shift === "Shift 3") {
+                        badgeClass = "bg-purple-100 text-purple-900 border-purple-200";
+                        label = "Shift 3 (16:00 - 00:00)";
+                    }
+
+                    cardHtml += `
+                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg bg-slate-50 border border-slate-100">
+                            <span class="font-medium text-slate-600 w-16">${dayName}</span>
+                            <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold border ${badgeClass}">${label}</span>
+                        </div>
+                    `;
+                }
+
+                cardHtml += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        function renderForecastTable() {
+            const tbody = document.getElementById('forecastTableBody');
+            tbody.innerHTML = '';
+
+            state.staff.forEach((name, staffIdx) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition';
+
+                let rowContent = `<td class="py-2.5 px-3 font-bold text-slate-800 border-r border-slate-200">${name}</td>`;
+
+                for (let wk = 0; wk < 4; wk++) {
+                    const shifts = [];
+                    for (let d = 0; d < 7; d++) {
+                        shifts.push(getShiftForStaff(staffIdx, d));
+                    }
+                    
+                    const offDayIdx = shifts.indexOf("OFF");
+                    const offDayName = offDayIdx !== -1 ? DAYS_ID[offDayIdx] : "-";
+
+                    rowContent += `
+                        <td class="py-2.5 px-3 border-r border-slate-200 text-center">
+                            <div class="font-medium text-slate-700">Off Hari ${offDayName}</div>
+                            <div class="text-[10px] text-slate-500 mt-0.5">Jadwal Tetap (48 Jam)</div>
+                        </td>
+                    `;
+                }
+
+                tr.innerHTML = rowContent;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderStatsTable() {
+            const tbody = document.getElementById('statsTableBody');
+            tbody.innerHTML = '';
+
+            state.staff.forEach((name, staffIdx) => {
+                let offCount = 0, s1Count = 0, s2Count = 0, s3Count = 0;
+
+                for (let d = 0; d < 7; d++) {
+                    const shift = getShiftForStaff(staffIdx, d);
+                    if (shift === "OFF") offCount++;
+                    else if (shift === "Shift 1") s1Count++;
+                    else if (shift === "Shift 2") s2Count++;
+                    else if (shift === "Shift 3") s3Count++;
+                }
+
+                const totalHours = (s1Count + s2Count + s3Count) * 8;
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition';
+                tr.innerHTML = `
+                    <td class="py-2.5 px-3 font-semibold text-slate-800">${name}</td>
+                    <td class="py-2.5 px-3 text-center font-semibold text-emerald-600">${offCount} Hari</td>
+                    <td class="py-2.5 px-3 text-center font-medium text-indigo-700">${s1Count} Shift</td>
+                    <td class="py-2.5 px-3 text-center font-medium text-amber-700">${s2Count} Shift</td>
+                    <td class="py-2.5 px-3 text-center font-medium text-purple-700">${s3Count} Shift</td>
+                    <td class="py-2.5 px-3 text-center font-bold text-slate-800">${totalHours} Jam</td>
+                    <td class="py-2.5 px-3 text-center">
+                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                            <i data-lucide="check" class="w-3 h-3"></i> Tetap & Stabil
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function nextWeek() {
+            state.currentWeekOffset++;
+            renderAll();
+            showToast(`Minggu ${state.currentWeekOffset >= 0 ? '+' : ''}${state.currentWeekOffset}`);
+        }
+
+        function prevWeek() {
+            state.currentWeekOffset--;
+            renderAll();
+            showToast(`Minggu ${state.currentWeekOffset >= 0 ? '+' : ''}${state.currentWeekOffset}`);
+        }
+
+        function resetToToday() {
+            state.currentWeekOffset = 0;
+            renderAll();
+            showToast("Kembali ke Minggu Ini (Jadwal Fix)");
+        }
+
+        function updateStartDate(val) {
+            if (!val) return;
+            state.startDate = val;
+            saveToLocalStorage();
+            renderAll();
+            showToast("Tanggal awal diperbarui");
+        }
+
+        function switchTab(tabName) {
+            state.activeTab = tabName;
+            
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('[id^="tab-"]').forEach(btn => {
+                btn.className = 'px-4 py-2.5 font-medium text-xs text-slate-500 hover:text-slate-800 border-b-2 border-transparent hover:border-slate-300 flex items-center gap-2 whitespace-nowrap';
+            });
+
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.className = 'px-4 py-2.5 font-semibold text-xs border-b-2 border-blue-600 text-blue-600 flex items-center gap-2 whitespace-nowrap';
+        }
+
+        function openWhatsAppModal() {
+            const schedule = generateWeeklySchedule(state.currentWeekOffset);
+            
+            const startDateObj = new Date(state.startDate);
+            startDateObj.setDate(startDateObj.getDate() + (state.currentWeekOffset * 7));
+            const endDateObj = new Date(startDateObj);
+            endDateObj.setDate(endDateObj.getDate() + 6);
+            
+            const opt = { day: 'numeric', month: 'short' };
+            const rangeStr = `${startDateObj.toLocaleDateString('id-ID', opt)} - ${endDateObj.toLocaleDateString('id-ID', opt)}`;
+
+            let text = `📅 *JADWAL SHIFT MINGGUAN – FIX REVISI*\n`;
+            text += `🗓 Periode: *${rangeStr}*\n`;
+            text += `------------------------------------\n\n`;
+
+            schedule.forEach(day => {
+                text += `📌 *${day.dayName.toUpperCase()}* (${day.dateStr})\n`;
+                text += `  • ☕ *Off*: ${day.off.join(', ')}\n`;
+                text += `  • 🌙 *Shift 1 (00:00-08:00)*: ${day.shift1.join(', ')}\n`;
+                text += `  • ☀️ *Shift 2 (08:00-16:00)*: ${day.shift2.join(', ')}\n`;
+                text += `  • 🌆 *Shift 3 (16:00-00:00)*: ${day.shift3.join(', ')}\n\n`;
+            });
+
+            text += `------------------------------------\n`;
+            text += `✅ *Catatan:* Jadwal bersifat tetap (fix) setiap minggu. Harap datang 15 menit sebelum shift dimulai.`;
+
+            document.getElementById('whatsappTextarea').value = text;
+            document.getElementById('whatsappModal').classList.remove('hidden');
+        }
+
+        function closeWhatsAppModal() {
+            document.getElementById('whatsappModal').classList.add('hidden');
+        }
+
+        function copyWhatsAppText() {
+            const textarea = document.getElementById('whatsappTextarea');
+            textarea.select();
+            document.execCommand('copy');
+            showToast("Teks WhatsApp berhasil disalin!");
+            closeWhatsAppModal();
+        }
+
+        function exportCSV() {
+            const schedule = generateWeeklySchedule(state.currentWeekOffset);
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Hari,Tanggal,Off,Shift 1 (00:00-08:00),Shift 2 (08:00-16:00),Shift 3 (16:00-00:00)\n";
+
+            schedule.forEach(day => {
+                const row = [
+                    `"${day.dayName}"`,
+                    `"${day.dateStr}"`,
+                    `"${day.off.join(' & ')}"`,
+                    `"${day.shift1.join(' & ')}"`,
+                    `"${day.shift2.join(' & ')}"`,
+                    `"${day.shift3.join(' & ')}"`
+                ].join(",");
+                csvContent += row + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Jadwal_Shift_Fix_Minggu_${state.currentWeekOffset}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("File CSV berhasil diunduh");
+        }
+
+        function openSettingsModal() {
+            document.getElementById('staffInputText').value = state.staff.join('\n');
+            document.getElementById('settingsModal').classList.remove('hidden');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.add('hidden');
+        }
+
+        function saveStaffList() {
+            const raw = document.getElementById('staffInputText').value;
+            const names = raw.split(/[\n,]+/).map(s => s.trim()).filter(s => s.length > 0);
+
+            if (names.length !== 7) {
+                showToast("Harap masukkan tepat 7 nama karyawan!");
+                return;
+            }
+
+            state.staff = names;
+            saveToLocalStorage();
+            renderAll();
+            closeSettingsModal();
+            showToast("Daftar karyawan berhasil diperbarui");
+        }
+
+        function resetDefaultStaff() {
+            state.staff = [...DEFAULT_STAFF];
+            document.getElementById('staffInputText').value = state.staff.join('\n');
+            saveToLocalStorage();
+            renderAll();
+            showToast("Kembali ke staf default");
+        }
+
+        function formatDateOffset(baseDateStr, daysOffset) {
+            const d = new Date(baseDateStr);
+            d.setDate(d.getDate() + daysOffset);
+            return d.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit' });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
