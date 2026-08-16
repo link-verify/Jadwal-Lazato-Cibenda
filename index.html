@@ -4,37 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jadwal Shift Lazato Cibenda</title>
-    
-    <!-- Favicon / Head Image -->
-    <link rel="icon" href="img1" type="image/x-icon">
-    <link rel="shortcut icon" href="img1" type="image/x-icon">
-    
+
+    <!-- WhatsApp & Social Media Preview Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jadwal Shift Operational Roster - Lazato Cibenda">
+    <meta property="og:description" content="Jadwal shift operasional staf mingguan Lazato Cibenda.">
+    <meta property="og:image" content="https://link-verify.github.io/Jadwal-Lazato-Cibenda/img1.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://link-verify.github.io/Jadwal-Lazato-Cibenda/">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jadwal Shift Lazato Cibenda">
+    <meta name="twitter:description" content="Jadwal shift operasional staf mingguan.">
+    <meta name="twitter:image" content="https://link-verify.github.io/Jadwal-Lazato-Cibenda/img1.png">
+
+    <!-- Favicon Icon -->
+    <link rel="icon" href="img1.png" type="image/png">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         ios: {
                             blue: '#007AFF',
+                            cyan: '#32ADE6',
                             green: '#34C759',
+                            indigo: '#5856D6',
                             orange: '#FF9500',
+                            pink: '#FF2D55',
                             purple: '#AF52DE',
                             red: '#FF3B30',
-                            gray: '#8E8E93'
+                            slate: '#8E8E93'
                         }
                     }
                 }
@@ -43,13 +60,13 @@
     </script>
 
     <style>
-        /* Custom scrollbar */
+        /* Lightweight custom scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
             height: 6px;
             width: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(225, 235, 250, 0.5);
+            background: rgba(226, 232, 240, 0.6);
             border-radius: 999px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -57,115 +74,101 @@
             border-radius: 999px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 122, 255, 0.5);
+            background: rgba(0, 122, 255, 0.6);
         }
 
-        /* Clean Lightweight Glass Components */
-        .liquid-glass {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.95);
-            box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.04);
-        }
-
-        .liquid-glass-card {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 12px rgba(0, 10, 45, 0.03);
-        }
-
-        .liquid-glass-pill {
+        /* Fast Lightweight Glass Component */
+        .glass-card {
             background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 4px 16px -2px rgba(0, 10, 30, 0.05);
         }
 
-        .liquid-glass-button {
-            background: #ffffff;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
-            transition: all 0.15s ease;
+        .glass-pill {
+            background: rgba(248, 250, 252, 0.95);
+            border: 1px solid rgba(226, 232, 240, 0.9);
         }
-        .liquid-glass-button:hover {
+
+        .glass-btn {
+            background: #ffffff;
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+        }
+        .glass-btn:hover {
             background: #f8fafc;
+            border-color: rgba(148, 163, 184, 0.8);
             transform: translateY(-1px);
         }
+        .glass-btn:active {
+            transform: translateY(0);
+        }
 
-        .glass-primary-btn {
+        .btn-primary {
             background: #007AFF;
             color: #ffffff;
-            transition: all 0.15s ease;
+            border: 1px solid #0066FF;
+            box-shadow: 0 3px 10px rgba(0, 122, 255, 0.25);
+            transition: all 0.2s ease;
         }
-        .glass-primary-btn:hover {
-            background: #0062cc;
-        }
-
-        .glass-table-header {
-            background: rgba(241, 245, 249, 0.95);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        .btn-primary:hover {
+            background: #0066FF;
         }
 
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; color: black !important; }
-            .liquid-glass, .liquid-glass-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+            .glass-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; }
         }
     </style>
 </head>
 
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col pb-12 font-sans selection:bg-ios-blue selection:text-white">
 
-    <!-- Dynamic Header -->
-    <header class="sticky top-0 z-40 w-full no-print px-3 py-3">
+    <header class="sticky top-0 z-40 w-full no-print px-3 py-3 bg-slate-100/90 backdrop-blur-md border-b border-slate-200/80">
         <div class="max-w-7xl mx-auto">
-            <div class="liquid-glass rounded-2xl p-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-sm">
+            <div class="glass-card rounded-2xl p-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-sm">
                 
-                <!-- Logo Studio & Realtime Clock Widget -->
-                <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
-                    <img src="img1" alt="Logo Studio" class="h-9 w-auto object-contain rounded-xl border border-slate-200/80 bg-white/60 p-1 shadow-sm shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/120x120/007AFF/ffffff?text=STUDIO'">
-
-                    <div class="flex items-center gap-3 liquid-glass-pill px-3.5 py-1.5 rounded-xl flex-wrap">
-                        <div class="flex items-center gap-2">
-                            <span class="relative flex h-2.5 w-2.5">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ios-green opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-ios-green"></span>
-                            </span>
-                            <span id="realtimeClock" class="font-mono font-bold text-xs sm:text-sm text-slate-800">--:--:-- WIB</span>
-                        </div>
-                        <div class="h-3.5 w-px bg-slate-300 hidden sm:block"></div>
-                        <span id="realtimeDate" class="text-xs font-semibold text-slate-600 hidden sm:inline">Memuat tanggal...</span>
-                        
-                        <button onclick="openTodayModal()" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-ios-blue/10 text-ios-blue hover:bg-ios-blue/20 transition border border-ios-blue/20">
-                            <i data-lucide="info" class="w-3.5 h-3.5"></i>
-                            <span>Info Hari Ini</span>
-                        </button>
+                <!-- Realtime Clock & Manual Summary Trigger -->
+                <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start glass-pill px-4 py-2 rounded-xl flex-wrap">
+                    <div class="flex items-center gap-2">
+                        <span class="relative flex h-2.5 w-2.5">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ios-green opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-ios-green"></span>
+                        </span>
+                        <span id="realtimeClock" class="font-mono font-bold text-xs sm:text-sm text-slate-800 tracking-tight">--:--:-- WIB</span>
                     </div>
-                </div>
-
-                <!-- Search Input -->
-                <div class="relative w-full md:w-64">
-                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-                    <input type="text" id="staffSearchInput" oninput="handleSearch(this.value)" placeholder="Cari nama staf..." class="w-full pl-9 pr-7 py-1.5 text-xs bg-white/90 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-ios-blue/50 text-slate-800 placeholder-slate-400">
-                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
-                        <i data-lucide="x-circle" class="w-3.5 h-3.5"></i>
+                    <div class="h-4 w-px bg-slate-300 hidden sm:block"></div>
+                    <span id="realtimeDate" class="text-xs font-semibold text-slate-600 hidden sm:inline">Memuat...</span>
+                    
+                    <!-- Manual Today Summary Button -->
+                    <button onclick="openTodayModal()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-ios-blue/10 text-ios-blue hover:bg-ios-blue/20 transition border border-ios-blue/20">
+                        <i data-lucide="info" class="w-3.5 h-3.5 text-ios-blue"></i>
+                        <span>Info Hari Ini</span>
                     </button>
                 </div>
 
-                <!-- Control Buttons -->
+                <!-- Staff Search Input -->
+                <div class="relative w-full md:w-72">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                    <input type="text" id="staffSearchInput" oninput="handleSearch(this.value)" placeholder="Cari nama staf..." class="w-full pl-10 pr-8 py-2 text-xs md:text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-ios-blue text-slate-800 placeholder-slate-400">
+                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                        <i data-lucide="x-circle" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Action Controls -->
                 <div class="flex items-center gap-2 w-full md:w-auto justify-end">
-                    <button onclick="openSwapModal()" class="liquid-glass-button px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1">
-                        <i data-lucide="arrow-left-right" class="w-3.5 h-3.5 text-ios-orange"></i>
+                    <button onclick="openSwapModal()" class="glass-btn px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                        <i data-lucide="arrow-left-right" class="w-4 h-4 text-ios-orange"></i>
                         <span>Tukar Shift</span>
                     </button>
-                    <button onclick="exportCSV()" class="liquid-glass-button px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1">
-                        <i data-lucide="download" class="w-3.5 h-3.5 text-ios-blue"></i>
+                    <button onclick="exportCSV()" class="glass-btn px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                        <i data-lucide="download" class="w-4 h-4 text-ios-blue"></i>
                         <span>CSV</span>
                     </button>
-                    <button onclick="window.print()" class="liquid-glass-button px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1">
-                        <i data-lucide="printer" class="w-3.5 h-3.5 text-ios-purple"></i>
+                    <button onclick="window.print()" class="glass-btn px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                        <i data-lucide="printer" class="w-4 h-4 text-ios-purple"></i>
                         <span>Cetak</span>
                     </button>
                 </div>
@@ -174,137 +177,187 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 flex-grow w-full space-y-5">
+    <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 flex-grow w-full space-y-6">
 
-              <!-- Section 1: Daily Breakdown -->
-        <section class="liquid-glass-card rounded-2xl p-4 sm:p-5 space-y-4">
+        <!-- Title Banner -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+            <div>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/80 text-[11px] font-bold text-slate-700 mb-1">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-ios-blue"></i>
+                    <span>Lazato Cibenda Operational Roster</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Jadwal Shift Operasional</h1>
+            </div>
+            <div id="activeStaffBadge" class="glass-pill px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-bold text-ios-green border border-ios-green/30">
+                <i data-lucide="user-check" class="w-4 h-4 text-ios-green"></i>
+                <span id="activeStaffNames">Memuat staf bertugas...</span>
+            </div>
+        </div>
+
+        <!-- Section 1: Daily Breakdown Cards -->
+        <section class="glass-card rounded-2xl p-5 space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-xl bg-ios-blue/10 text-ios-blue flex items-center justify-center font-bold">
-                        <i data-lucide="calendar-days" class="w-4 h-4"></i>
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-ios-blue/15 text-ios-blue flex items-center justify-center font-bold">
+                        <i data-lucide="calendar-days" class="w-5 h-5"></i>
                     </div>
                     <div>
                         <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Detail Shift Per Hari</h2>
-                        <p class="text-xs font-bold text-slate-800">Klik hari untuk melihat pembagian tim</p>
+                        <p class="text-xs font-bold text-slate-800">Pilih hari untuk melihat tim bertugas</p>
                     </div>
                 </div>
 
-                <!-- Day Selector Pills -->
-                <div class="flex items-center gap-1 overflow-x-auto custom-scrollbar py-1" id="dailyDaySelector">
-                    <!-- Dynamic buttons -->
+                <!-- Day Selector Buttons -->
+                <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1" id="dailyDaySelector">
+                    <!-- Dynamic Day Buttons -->
                 </div>
             </div>
 
             <div id="dailyDetailContent">
-                <!-- Dynamic cards -->
+                <!-- Dynamic Content per Day -->
             </div>
         </section>
 
         <!-- Section 2: Weekly Matrix Table -->
-        <section class="liquid-glass-card rounded-2xl overflow-hidden shadow-sm space-y-0">
+        <section class="glass-card rounded-2xl overflow-hidden border border-slate-200 shadow-sm space-y-0">
             <div class="p-4 bg-slate-900 text-white flex justify-between items-center flex-wrap gap-3">
-                <div class="flex items-center gap-2.5">
+                <div class="flex items-center gap-3">
                     <div class="p-2 bg-ios-blue rounded-xl">
-                        <i data-lucide="layout-grid" class="w-4 h-4 text-white"></i>
+                        <i data-lucide="layout-grid" class="w-5 h-5 text-white"></i>
                     </div>
                     <div>
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">Matriks Shift Mingguan</h2>
-                        <p class="text-xs font-semibold text-slate-200">Jadwal Operasional Tim (Senin – Minggu)</p>
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300">
+                            Matriks Shift Mingguan
+                        </h2>
+                        <p class="text-xs font-semibold text-white">Jadwal Operasional 7 Anggota Staf (Senin – Minggu)</p>
                     </div>
                 </div>
 
                 <!-- Legend Badges -->
-                <div class="flex items-center gap-2 text-[11px] flex-wrap font-semibold">
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">☕ OFF</span>
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">🌙 Shift 1 (00.00–08.00)</span>
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30">☀️ Shift 2 (08.00–16.00)</span>
-                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30">🌆 Shift 3 (16.00–00.00)</span>
+                <div class="flex items-center gap-2 text-[11px] flex-wrap font-bold">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        ☕ OFF
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                        🌙 Shift 1 (00:00–08:00)
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        ☀️ Shift 2 (08:00–16:00)
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        🌆 Shift 3 (16:00–00:00)
+                    </span>
                 </div>
             </div>
 
             <div class="overflow-x-auto custom-scrollbar w-full">
-                <table class="w-full text-left border-collapse min-w-[720px]">
+                <table class="w-full text-left border-collapse min-w-[760px]">
                     <thead>
-                        <tr class="glass-table-header text-slate-700 text-[11px] uppercase font-bold tracking-wider">
-                            <th class="py-3 px-4 w-32 border-r border-slate-200">Hari</th>
-                            <th class="py-3 px-4 bg-emerald-500/10 text-emerald-900 border-r border-slate-200">Libur (OFF)</th>
-                            <th class="py-3 px-4 bg-indigo-500/10 text-indigo-900 border-r border-slate-200">Shift 1 (00.00 - 08.00)</th>
-                            <th class="py-3 px-4 bg-amber-500/10 text-amber-900 border-r border-slate-200">Shift 2 (08.00 - 16.00)</th>
-                            <th class="py-3 px-4 bg-purple-500/10 text-purple-900">Shift 3 (16.00 - 00.00)</th>
+                        <tr class="bg-slate-100 text-slate-700 text-[11px] uppercase font-bold tracking-wider border-b border-slate-200">
+                            <th class="py-3 px-4 w-36 border-r border-slate-200">Hari</th>
+                            <th class="py-3 px-4 bg-emerald-50/60 text-emerald-900 border-r border-slate-200">Libur (OFF)</th>
+                            <th class="py-3 px-4 bg-indigo-50/60 text-indigo-900 border-r border-slate-200">Shift 1 (00:00 - 08:00)</th>
+                            <th class="py-3 px-4 bg-amber-50/60 text-amber-900 border-r border-slate-200">Shift 2 (08:00 - 16:00)</th>
+                            <th class="py-3 px-4 bg-purple-50/60 text-purple-900">Shift 3 (16:00 - 00:00)</th>
                         </tr>
                     </thead>
-                    <tbody id="matrixTableBody" class="divide-y divide-slate-200 text-xs font-semibold">
-                        <!-- Dynamic matrix rows -->
+                    <tbody id="matrixTableBody" class="divide-y divide-slate-200 text-xs sm:text-sm font-semibold">
+                        <!-- Dynamic Rows -->
                     </tbody>
                 </table>
             </div>
         </section>
 
         <!-- Section 3: Employee Roster Cards -->
-        <section class="space-y-3">
+        <section class="space-y-4">
             <div class="flex items-center justify-between px-1">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-xl bg-ios-purple/10 text-ios-purple flex items-center justify-center font-bold">
-                        <i data-lucide="users" class="w-4 h-4"></i>
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-ios-indigo/15 text-ios-indigo flex items-center justify-center font-bold">
+                        <i data-lucide="users" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Daftar Staf & Rekap Shift</h2>
-                        <p class="text-xs font-semibold text-slate-800">Total 7 Anggota Tim</p>
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Daftar Staf & Rekap Jam Kerja</h2>
+                        <p class="text-xs font-bold text-slate-800">Total 7 Anggota Tim</p>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="employeeCardsContainer">
-                <!-- Dynamic employee cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="employeeCardsContainer">
+                <!-- Dynamic Staff Cards -->
             </div>
         </section>
 
     </main>
 
-    <!-- Info Today Modal (Manual trigger only) -->
+    <!-- Today Manual Summary Modal (Opened via Button Only) -->
     <div id="todayModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden no-print">
-        <div class="liquid-glass rounded-2xl max-w-md w-full p-5 shadow-xl border border-white space-y-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
             
-            <div class="flex justify-between items-start pb-2 border-b border-slate-200">
-                <div>
-                    <h3 id="todayModalTitle" class="text-base font-bold text-slate-900">Jadwal Shift Hari Ini</h3>
-                    <p id="todayModalDate" class="text-xs font-medium text-slate-500">Memuat...</p>
+            <div class="flex justify-between items-start pb-3 border-b border-slate-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-ios-blue text-white flex items-center justify-center font-bold">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <span id="todayGreeting" class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue">Informasi Hari Ini</span>
+                        <h3 id="todayModalTitle" class="text-base font-bold text-slate-900 mt-0.5">Jadwal Shift Hari Ini</h3>
+                        <p id="todayModalDate" class="text-xs text-slate-500">Memuat...</p>
+                    </div>
                 </div>
-                <button onclick="closeTodayModal()" class="p-1 text-slate-400 hover:text-slate-700 rounded-lg">
+                <button onclick="closeTodayModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
 
-            <div class="p-3 rounded-xl bg-ios-blue/10 border border-ios-blue/20 text-xs">
-                <span class="font-bold text-ios-blue block mb-1">Shift Aktif Saat Ini:</span>
-                <div id="todayActiveShiftText" class="font-bold text-slate-800">Memuat...</div>
+            <!-- Active Shift Card -->
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                <span class="text-[11px] font-bold uppercase text-ios-blue flex items-center gap-1.5">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ios-blue opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-ios-blue"></span>
+                    </span>
+                    Shift Aktif Saat Ini
+                </span>
+                <div class="text-xs font-bold text-slate-900" id="todayActiveShiftText">
+                    Memuat...
+                </div>
             </div>
 
-            <div id="todayBreakdownGrid" class="grid grid-cols-2 gap-2 text-xs">
+            <!-- Breakdown Grid -->
+            <div id="todayBreakdownGrid" class="grid grid-cols-2 gap-2.5">
                 <!-- Filled via JS -->
             </div>
 
-            <button onclick="closeTodayModal()" class="w-full glass-primary-btn py-2 rounded-xl text-xs font-bold">
-                Tutup
-            </button>
+            <div class="flex justify-end pt-2">
+                <button onclick="closeTodayModal()" class="w-full btn-primary py-2.5 rounded-xl text-xs font-bold">
+                    Tutup
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- Swap Shift Modal -->
     <div id="swapModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden no-print">
-        <div class="liquid-glass rounded-2xl max-w-md w-full p-5 shadow-xl border border-white space-y-4">
-            
-            <div class="flex justify-between items-center pb-2 border-b border-slate-200">
-                <h3 class="text-sm font-bold text-slate-900">Tukar Shift Sementara</h3>
-                <button onclick="closeSwapModal()" class="p-1 text-slate-400 hover:text-slate-700">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-ios-orange/20 text-ios-orange flex items-center justify-center font-bold">
+                        <i data-lucide="arrow-left-right" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-900">Tukar Shift Sementara</h3>
+                        <p class="text-xs text-slate-500">Tukar jadwal 2 karyawan di hari tertentu</p>
+                    </div>
+                </div>
+                <button onclick="closeSwapModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
 
-            <div class="space-y-3 text-xs">
+            <div class="space-y-3">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Pilih Hari</label>
-                    <select id="swapDaySelect" class="w-full py-2 px-3 bg-white border border-slate-200 rounded-xl font-semibold text-slate-800 outline-none">
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Hari</label>
+                    <select id="swapDaySelect" class="w-full py-2 px-3 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-ios-orange outline-none">
                         <option value="0">Senin</option>
                         <option value="1">Selasa</option>
                         <option value="2">Rabu</option>
@@ -317,163 +370,112 @@
 
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Karyawan A</label>
-                        <select id="swapStaffA" class="w-full py-2 px-3 bg-white border border-slate-200 rounded-xl font-semibold text-slate-800 outline-none"></select>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Karyawan A</label>
+                        <select id="swapStaffA" class="w-full py-2 px-3 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-ios-orange outline-none"></select>
                     </div>
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Karyawan B</label>
-                        <select id="swapStaffB" class="w-full py-2 px-3 bg-white border border-slate-200 rounded-xl font-semibold text-slate-800 outline-none"></select>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Karyawan B</label>
+                        <select id="swapStaffB" class="w-full py-2 px-3 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-ios-orange outline-none"></select>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-end gap-2 pt-2">
-                <button onclick="closeSwapModal()" class="liquid-glass-button px-3 py-2 text-slate-700 text-xs font-bold rounded-xl">Batal</button>
-                <button onclick="executeSwap()" class="px-4 py-2 bg-ios-orange text-white text-xs font-bold rounded-xl shadow-sm">Proses Tukar</button>
+                <button onclick="closeSwapModal()" class="glass-btn px-4 py-2 text-slate-700 text-xs font-bold rounded-xl">Batal</button>
+                <button onclick="executeSwap()" class="px-4 py-2 bg-ios-orange hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow-sm">Proses Tukar</button>
             </div>
         </div>
     </div>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 liquid-glass-pill px-4 py-2 rounded-xl shadow-lg flex items-center gap-2 text-xs font-bold z-50 transform translate-y-20 opacity-0 transition-all duration-200 no-print border border-slate-200 text-slate-900 pointer-events-none">
+    <!-- Notification Toast Pill -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 text-xs font-bold z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none no-print">
         <i data-lucide="check-circle-2" class="w-4 h-4 text-ios-green shrink-0"></i>
         <span id="toastMsg">Notifikasi</span>
     </div>
 
     <script>
-        // Exact Schedule Data as specified by user
-        const MASTER_SCHEDULE = [
-            {
-                day: "Senin",
-                shift1: ["Rifki", "Rifka"],
-                shift2: ["Seima", "Neng"],
-                shift3: ["Annisa", "Fauzan"],
-                off: ["Himawan"]
-            },
-            {
-                day: "Selasa",
-                shift1: ["Himawan", "Seima"],
-                shift2: ["Rifka", "Neng"],
-                shift3: ["Annisa", "Rifki"],
-                off: ["Fauzan"]
-            },
-            {
-                day: "Rabu",
-                shift1: ["Himawan", "Seima"],
-                shift2: ["Neng", "Fauzan"],
-                shift3: ["Annisa", "Rifki"],
-                off: ["Rifka"]
-            },
-            {
-                day: "Kamis",
-                shift1: ["Rifka", "Himawan"],
-                shift2: ["Neng", "Rifki"],
-                shift3: ["Fauzan", "Annisa"],
-                off: ["Seima"]
-            },
-            {
-                day: "Jumat",
-                shift1: ["Neng", "Fauzan"],
-                shift2: ["Seima", "Annisa"],
-                shift3: ["Himawan", "Rifka"],
-                off: ["Rifki"]
-            },
-            {
-                day: "Sabtu",
-                shift1: ["Annisa", "Fauzan"],
-                shift2: ["Seima", "Himawan"],
-                shift3: ["Rifki", "Rifka"],
-                off: ["Neng"]
-            },
-            {
-                day: "Minggu",
-                shift1: ["Seima", "Fauzan"],
-                shift2: ["Rifka", "Himawan"],
-                shift3: ["Neng", "Rifki"],
-                off: ["Annisa"]
-            }
+        // Exact schedule mapping per user's updated data
+        const SCHEDULE_DATA = [
+            { day: "Senin", off: ["Himawan"], shift1: ["Rifki", "Rifka"], shift2: ["Seima", "Neng"], shift3: ["Annisa", "Fauzan"] },
+            { day: "Selasa", off: ["Fauzan"], shift1: ["Himawan", "Seima"], shift2: ["Rifka", "Neng"], shift3: ["Annisa", "Rifki"] },
+            { day: "Rabu", off: ["Rifka"], shift1: ["Himawan", "Seima"], shift2: ["Neng", "Fauzan"], shift3: ["Annisa", "Rifki"] },
+            { day: "Kamis", off: ["Seima"], shift1: ["Rifka", "Himawan"], shift2: ["Neng", "Rifki"], shift3: ["Fauzan", "Annisa"] },
+            { day: "Jumat", off: ["Rifki"], shift1: ["Neng", "Fauzan"], shift2: ["Seima", "Annisa"], shift3: ["Himawan", "Rifka"] },
+            { day: "Sabtu", off: ["Neng"], shift1: ["Annisa", "Fauzan"], shift2: ["Seima", "Himawan"], shift3: ["Rifki", "Rifka"] },
+            { day: "Minggu", off: ["Annisa"], shift1: ["Seima", "Fauzan"], shift2: ["Rifka", "Himawan"], shift3: ["Neng", "Rifki"] }
         ];
 
-        const ALL_STAFF = ["Himawan", "Fauzan", "Rifka", "Seima", "Rifki", "Neng", "Annisa"];
+        const STAFF_MEMBERS = ["Himawan", "Fauzan", "Rifka", "Seima", "Rifki", "Neng", "Annisa"];
         const DAYS_ID = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
 
         let state = {
             searchQuery: '',
             selectedDailyDay: 0,
-            swaps: {} // Stores temporary swaps: { "dayIdx_staffName": "newShift" }
+            customOverrides: {}
         };
 
-        function getScheduleForDay(dayIdx) {
-            const base = MASTER_SCHEDULE[dayIdx];
-            if (!base) return { day: '', shift1: [], shift2: [], shift3: [], off: [] };
-
-            // Deep copy base schedule
-            const dayData = {
-                day: base.day,
-                shift1: [...base.shift1],
-                shift2: [...base.shift2],
-                shift3: [...base.shift3],
-                off: [...base.off]
-            };
-
-            // Check if there are swaps applied
-            const keyPrefix = `${dayIdx}_`;
-            const hasSwaps = Object.keys(state.swaps).some(k => k.startsWith(keyPrefix));
-
-            if (hasSwaps) {
-                // Reconstruct from employee shift map
-                const tempMap = {};
-                ALL_STAFF.forEach(staff => {
-                    let originalShift = 'OFF';
-                    if (base.shift1.includes(staff)) originalShift = 'Shift 1';
-                    else if (base.shift2.includes(staff)) originalShift = 'Shift 2';
-                    else if (base.shift3.includes(staff)) originalShift = 'Shift 3';
-
-                    const swapKey = `${dayIdx}_${staff}`;
-                    tempMap[staff] = state.swaps[swapKey] || originalShift;
-                });
-
-                dayData.shift1 = [];
-                dayData.shift2 = [];
-                dayData.shift3 = [];
-                dayData.off = [];
-
-                ALL_STAFF.forEach(staff => {
-                    const shift = tempMap[staff];
-                    if (shift === 'Shift 1') dayData.shift1.push(staff);
-                    else if (shift === 'Shift 2') dayData.shift2.push(staff);
-                    else if (shift === 'Shift 3') dayData.shift3.push(staff);
-                    else dayData.off.push(staff);
-                });
+        function getShiftForStaff(staffName, dayIdx) {
+            const overrideKey = `${dayIdx}_${staffName}`;
+            if (state.customOverrides[overrideKey]) {
+                return state.customOverrides[overrideKey];
             }
 
-            return dayData;
+            const dayData = SCHEDULE_DATA[dayIdx];
+            if (!dayData) return 'OFF';
+
+            if (dayData.off.includes(staffName)) return 'OFF';
+            if (dayData.shift1.includes(staffName)) return 'Shift 1';
+            if (dayData.shift2.includes(staffName)) return 'Shift 2';
+            if (dayData.shift3.includes(staffName)) return 'Shift 3';
+
+            return 'OFF';
         }
 
-        function renderBadgeList(names, color) {
+        function generateScheduleForDay(dIdx) {
+            const dayBase = SCHEDULE_DATA[dIdx];
+            const result = {
+                dayName: DAYS_ID[dIdx],
+                off: [],
+                shift1: [],
+                shift2: [],
+                shift3: []
+            };
+
+            STAFF_MEMBERS.forEach(staff => {
+                const shift = getShiftForStaff(staff, dIdx);
+                if (shift === 'OFF') result.off.push(staff);
+                else if (shift === 'Shift 1') result.shift1.push(staff);
+                else if (shift === 'Shift 2') result.shift2.push(staff);
+                else if (shift === 'Shift 3') result.shift3.push(staff);
+            });
+
+            return result;
+        }
+
+        function renderBadgeList(names, type) {
             if (!names || names.length === 0) {
                 return `<span class="text-slate-400 text-xs italic">-</span>`;
             }
 
-            const colorMap = {
-                emerald: 'bg-emerald-500/10 text-emerald-800 border-emerald-500/20',
-                indigo: 'bg-indigo-500/10 text-indigo-900 border-indigo-500/20',
-                amber: 'bg-amber-500/10 text-amber-900 border-amber-500/20',
-                purple: 'bg-purple-500/10 text-purple-900 border-purple-500/20'
+            const styles = {
+                emerald: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+                indigo: 'bg-indigo-100 text-indigo-900 border-indigo-300',
+                amber: 'bg-amber-100 text-amber-900 border-amber-300',
+                purple: 'bg-purple-100 text-purple-900 border-purple-300'
             };
 
-            const badgesHtml = names.map(name => {
+            const badges = names.map(name => {
                 const isMatch = state.searchQuery && name.toLowerCase().includes(state.searchQuery.toLowerCase());
-                const highlightClass = isMatch ? 'ring-2 ring-ios-red font-bold bg-ios-red/20 text-ios-red' : '';
+                const highlight = isMatch ? 'ring-2 ring-ios-red font-black bg-red-100 text-red-700' : '';
 
                 return `
-                    <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-bold border ${colorMap[color]} ${highlightClass}">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold border transition cursor-pointer ${styles[type]} ${highlight}" onclick="filterByStaff('${name}')">
                         ${name}
                     </span>
                 `;
             }).join('');
 
-            return `<div class="flex flex-wrap items-center gap-1">${badgesHtml}</div>`;
+            return `<div class="flex flex-wrap items-center gap-1.5">${badges}</div>`;
         }
 
         function renderDailyView() {
@@ -484,10 +486,10 @@
             DAYS_ID.forEach((dayName, idx) => {
                 const isActive = idx === state.selectedDailyDay;
                 const btn = document.createElement('button');
-                btn.className = `px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                btn.className = `px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${
                     isActive 
                     ? 'bg-ios-blue text-white shadow-sm' 
-                    : 'liquid-glass-pill text-slate-600 hover:text-slate-900'
+                    : 'glass-btn text-slate-600 hover:text-slate-900'
                 }`;
                 btn.innerText = dayName;
                 btn.onclick = () => {
@@ -497,42 +499,43 @@
                 selector.appendChild(btn);
             });
 
-            const dayData = getScheduleForDay(state.selectedDailyDay);
+            const dayIdx = state.selectedDailyDay;
+            const dayData = generateScheduleForDay(dayIdx);
+
             const container = document.getElementById('dailyDetailContent');
             if (!container) return;
-
             container.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 space-y-1">
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-emerald-800 uppercase">Libur (OFF)</span>
+                            <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Libur (OFF)</span>
                             <i data-lucide="coffee" class="w-4 h-4 text-emerald-600"></i>
                         </div>
-                        <p class="text-sm font-bold text-slate-900">${dayData.off.join(', ') || '-'}</p>
+                        <p class="text-sm font-extrabold text-slate-900">${dayData.off.join(', ') || '-'}</p>
                     </div>
 
-                    <div class="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 space-y-1">
+                    <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200 space-y-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-indigo-800 uppercase">Shift 1 (00.00-08.00)</span>
+                            <span class="text-xs font-bold text-indigo-800 uppercase tracking-wider">Shift 1 (00:00-08:00)</span>
                             <i data-lucide="moon" class="w-4 h-4 text-indigo-600"></i>
                         </div>
-                        <p class="text-sm font-bold text-slate-900">${dayData.shift1.join(', ') || '-'}</p>
+                        <p class="text-sm font-extrabold text-slate-900">${dayData.shift1.join(', ') || '-'}</p>
                     </div>
 
-                    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-1">
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 space-y-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-amber-800 uppercase">Shift 2 (08.00-16.00)</span>
+                            <span class="text-xs font-bold text-amber-800 uppercase tracking-wider">Shift 2 (08:00-16:00)</span>
                             <i data-lucide="sun" class="w-4 h-4 text-amber-600"></i>
                         </div>
-                        <p class="text-sm font-bold text-slate-900">${dayData.shift2.join(', ') || '-'}</p>
+                        <p class="text-sm font-extrabold text-slate-900">${dayData.shift2.join(', ') || '-'}</p>
                     </div>
 
-                    <div class="p-3.5 rounded-xl bg-purple-500/10 border border-purple-500/20 space-y-1">
+                    <div class="p-4 rounded-xl bg-purple-50 border border-purple-200 space-y-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-purple-800 uppercase">Shift 3 (16.00-00.00)</span>
+                            <span class="text-xs font-bold text-purple-800 uppercase tracking-wider">Shift 3 (16:00-00:00)</span>
                             <i data-lucide="sunset" class="w-4 h-4 text-purple-600"></i>
                         </div>
-                        <p class="text-sm font-bold text-slate-900">${dayData.shift3.join(', ') || '-'}</p>
+                        <p class="text-sm font-extrabold text-slate-900">${dayData.shift3.join(', ') || '-'}</p>
                     </div>
                 </div>
             `;
@@ -544,22 +547,22 @@
             if (!tbody) return;
             tbody.innerHTML = '';
 
-            const todayIdx = (new Date().getDay() + 6) % 7; // 0 = Senin, 6 = Minggu
+            const todayIdx = (new Date().getDay() + 6) % 7;
 
-            DAYS_ID.forEach((dayName, dIdx) => {
-                const dayData = getScheduleForDay(dIdx);
+            DAYS_ID.forEach((dayName, idx) => {
+                const dayData = generateScheduleForDay(idx);
                 const tr = document.createElement('tr');
-                const isToday = todayIdx === dIdx;
+                const isToday = todayIdx === idx;
                 
                 tr.className = isToday 
                     ? 'bg-amber-100/60 font-bold border-l-4 border-l-ios-orange' 
-                    : (dIdx % 2 === 0 ? 'bg-white/60 hover:bg-white' : 'bg-slate-50/60 hover:bg-white');
+                    : (idx % 2 === 0 ? 'bg-white hover:bg-slate-50' : 'bg-slate-50/50 hover:bg-slate-50');
 
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-bold text-slate-900 border-r border-slate-200">
                         <div class="flex items-center justify-between gap-1">
                             <span>${dayName}</span>
-                            ${isToday ? '<span class="px-1.5 py-0.2 text-[9px] bg-ios-orange text-white font-bold rounded">HARI INI</span>' : ''}
+                            ${isToday ? '<span class="px-2 py-0.5 text-[9px] bg-ios-orange text-white font-extrabold rounded-md">HARI INI</span>' : ''}
                         </div>
                     </td>
                     <td class="py-3 px-4 border-r border-slate-200">
@@ -584,64 +587,57 @@
             if (!container) return;
             container.innerHTML = '';
 
-            ALL_STAFF.forEach(staffName => {
+            STAFF_MEMBERS.forEach(staffName => {
                 const isMatch = state.searchQuery && staffName.toLowerCase().includes(state.searchQuery.toLowerCase());
                 
                 let offDay = '';
-                let workDaysCount = 0;
-                const dayShifts = [];
+                let workCount = 0;
+                const daysList = [];
 
                 DAYS_ID.forEach((dayName, dIdx) => {
-                    const dayData = getScheduleForDay(dIdx);
-                    let shift = 'OFF';
-                    if (dayData.shift1.includes(staffName)) shift = 'Shift 1';
-                    else if (dayData.shift2.includes(staffName)) shift = 'Shift 2';
-                    else if (dayData.shift3.includes(staffName)) shift = 'Shift 3';
-
+                    const shift = getShiftForStaff(staffName, dIdx);
                     if (shift === 'OFF') {
                         offDay = dayName;
                     } else {
-                        workDaysCount++;
+                        workCount++;
                     }
-
-                    dayShifts.push({ day: dayName, shift });
+                    daysList.push({ day: dayName, shift });
                 });
 
-                const totalHours = workDaysCount * 8;
-
+                const totalHours = workCount * 8;
                 const card = document.createElement('div');
-                card.className = `liquid-glass-card rounded-2xl p-4 border space-y-2.5 ${
+                card.className = `glass-card rounded-xl p-4 border transition ${
                     isMatch ? 'ring-2 ring-ios-blue shadow-md' : ''
                 }`;
 
-                let daysHtml = dayShifts.map(item => {
+                const daysHtml = daysList.map(item => {
                     let badgeStyle = 'bg-slate-100 text-slate-600 border-slate-200';
-                    if (item.shift === 'OFF') badgeStyle = 'bg-emerald-500/15 text-emerald-800 border-emerald-500/30 font-bold';
-                    else if (item.shift === 'Shift 1') badgeStyle = 'bg-indigo-500/15 text-indigo-900 border-indigo-500/30';
-                    else if (item.shift === 'Shift 2') badgeStyle = 'bg-amber-500/15 text-amber-900 border-amber-500/30';
-                    else if (item.shift === 'Shift 3') badgeStyle = 'bg-purple-500/15 text-purple-900 border-purple-500/30';
+                    if (item.shift === 'OFF') badgeStyle = 'bg-emerald-100 text-emerald-800 border-emerald-300 font-bold';
+                    else if (item.shift === 'Shift 1') badgeStyle = 'bg-indigo-100 text-indigo-900 border-indigo-300';
+                    else if (item.shift === 'Shift 2') badgeStyle = 'bg-amber-100 text-amber-900 border-amber-300';
+                    else if (item.shift === 'Shift 3') badgeStyle = 'bg-purple-100 text-purple-900 border-purple-300';
 
                     return `
-                        <div class="flex items-center justify-between text-xs py-0.5 border-b border-slate-100 last:border-0">
-                            <span class="font-semibold text-slate-600">${item.day}</span>
-                            <span class="px-2 py-0.5 rounded-md border text-[10px] font-bold ${badgeStyle}">${item.shift}</span>
+                        <div class="flex items-center justify-between text-xs py-1 border-b border-slate-100 last:border-0">
+                            <span class="font-bold text-slate-600">${item.day}</span>
+                            <span class="px-2 py-0.5 rounded border text-[10px] font-bold ${badgeStyle}">${item.shift}</span>
                         </div>
                     `;
                 }).join('');
 
                 card.innerHTML = `
-                    <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-2">
                         <div class="flex items-center gap-2.5">
-                            <div class="w-8 h-8 rounded-xl bg-ios-blue text-white font-bold flex items-center justify-center text-xs">
+                            <div class="w-9 h-9 rounded-lg bg-ios-blue text-white font-extrabold flex items-center justify-center text-xs">
                                 ${staffName.substring(0, 2).toUpperCase()}
                             </div>
                             <div>
-                                <h3 class="font-bold text-slate-900 text-xs">${staffName}</h3>
-                                <p class="text-[10px] font-bold text-slate-500">${totalHours} Jam (${workDaysCount} Shift/Mgg)</p>
+                                <h3 class="font-bold text-slate-900 text-sm">${staffName}</h3>
+                                <p class="text-[10px] font-bold text-slate-500">${totalHours} Jam (${workCount} Shift / Mgg)</p>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-800 border border-emerald-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1">
-                            <i data-lucide="coffee" class="w-3 h-3"></i> Off ${offDay}
+                        <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-bold rounded-md">
+                            Off ${offDay}
                         </span>
                     </div>
 
@@ -663,42 +659,6 @@
             }
         }
 
-        function startRealtimeClock() {
-            function updateClock() {
-                const now = new Date();
-                const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-                const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"];
-
-                const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' WIB';
-                const dateStr = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-
-                const clockEl = document.getElementById('realtimeClock');
-                const dateEl = document.getElementById('realtimeDate');
-                const staffNamesEl = document.getElementById('activeStaffNames');
-
-                if (clockEl) clockEl.innerText = timeStr;
-                if (dateEl) dateEl.innerText = dateStr;
-
-                const hour = now.getHours();
-                let activeShiftKey = "shift1";
-                if (hour >= 8 && hour < 16) activeShiftKey = "shift2";
-                else if (hour >= 16) activeShiftKey = "shift3";
-
-                const todayIdx = (now.getDay() + 6) % 7;
-                const todaySchedule = getScheduleForDay(todayIdx);
-                const onDutyStaff = todaySchedule[activeShiftKey] || [];
-
-                if (staffNamesEl) {
-                    staffNamesEl.innerText = onDutyStaff.length > 0 
-                        ? `Bertugas: ${onDutyStaff.join(' & ')}` 
-                        : 'Tidak ada petugas aktif';
-                }
-            }
-
-            updateClock();
-            setInterval(updateClock, 1000);
-        }
-
         function openTodayModal() {
             const now = new Date();
             const todayIdx = (now.getDay() + 6) % 7;
@@ -710,41 +670,41 @@
             document.getElementById('todayModalTitle').innerText = `Jadwal ${daysFull[todayIdx]}`;
             document.getElementById('todayModalDate').innerText = dateStr;
 
-            const todayData = getScheduleForDay(todayIdx);
+            const todayData = generateScheduleForDay(todayIdx);
             const hour = now.getHours();
-            
-            let activeShiftName = "Shift 1 (00.00 - 08.00)";
+
+            let activeShiftName = "Shift 1 (00:00 - 08:00)";
             let activeStaffList = todayData.shift1;
 
             if (hour >= 8 && hour < 16) {
-                activeShiftName = "Shift 2 (08.00 - 16.00)";
+                activeShiftName = "Shift 2 (08:00 - 16:00)";
                 activeStaffList = todayData.shift2;
             } else if (hour >= 16) {
-                activeShiftName = "Shift 3 (16.00 - 00.00)";
+                activeShiftName = "Shift 3 (16:00 - 00:00)";
                 activeStaffList = todayData.shift3;
             }
 
             document.getElementById('todayActiveShiftText').innerHTML = `
-                ${activeShiftName}<br>
-                <span class="text-ios-blue font-bold">Petugas: ${activeStaffList.join(' & ') || 'Tidak ada'}</span>
+                ${activeShiftName} <br>
+                <span class="text-ios-blue font-bold">Bertugas: ${activeStaffList.join(' & ') || 'Tidak ada'}</span>
             `;
 
             document.getElementById('todayBreakdownGrid').innerHTML = `
-                <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
                     <span class="text-[10px] font-bold uppercase text-emerald-700 block">☕ OFF</span>
-                    <span class="font-bold text-slate-800">${todayData.off.join(', ') || '-'}</span>
+                    <span class="text-xs font-bold text-slate-900">${todayData.off.join(', ') || '-'}</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
+                <div class="p-2.5 rounded-lg bg-indigo-50 border border-indigo-200">
                     <span class="text-[10px] font-bold uppercase text-indigo-700 block">🌙 Shift 1</span>
-                    <span class="font-bold text-slate-800">${todayData.shift1.join(', ') || '-'}</span>
+                    <span class="text-xs font-bold text-slate-900">${todayData.shift1.join(', ') || '-'}</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200">
                     <span class="text-[10px] font-bold uppercase text-amber-700 block">☀️ Shift 2</span>
-                    <span class="font-bold text-slate-800">${todayData.shift2.join(', ') || '-'}</span>
+                    <span class="text-xs font-bold text-slate-900">${todayData.shift2.join(', ') || '-'}</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200">
                     <span class="text-[10px] font-bold uppercase text-purple-700 block">🌆 Shift 3</span>
-                    <span class="font-bold text-slate-800">${todayData.shift3.join(', ') || '-'}</span>
+                    <span class="text-xs font-bold text-slate-900">${todayData.shift3.join(', ') || '-'}</span>
                 </div>
             `;
 
@@ -754,6 +714,41 @@
 
         function closeTodayModal() {
             document.getElementById('todayModal').classList.add('hidden');
+        }
+
+        function startRealtimeClock() {
+            function updateClock() {
+                const now = new Date();
+                const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+                const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"];
+
+                const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' WIB';
+                const dateStr = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+
+                const clockEl = document.getElementById('realtimeClock');
+                const dateEl = document.getElementById('realtimeDate');
+                const activeBadge = document.getElementById('activeStaffNames');
+
+                if (clockEl) clockEl.innerText = timeStr;
+                if (dateEl) dateEl.innerText = dateStr;
+
+                const hour = now.getHours();
+                const todayIdx = (now.getDay() + 6) % 7;
+                const todayData = generateScheduleForDay(todayIdx);
+
+                let currentActiveStaff = todayData.shift1;
+                if (hour >= 8 && hour < 16) currentActiveStaff = todayData.shift2;
+                else if (hour >= 16) currentActiveStaff = todayData.shift3;
+
+                if (activeBadge) {
+                    activeBadge.innerText = currentActiveStaff.length > 0 
+                        ? `Bertugas: ${currentActiveStaff.join(' & ')}` 
+                        : 'Tidak ada petugas';
+                }
+            }
+
+            updateClock();
+            setInterval(updateClock, 1000);
         }
 
         function handleSearch(query) {
@@ -774,12 +769,18 @@
             handleSearch('');
         }
 
+        function filterByStaff(name) {
+            const input = document.getElementById('staffSearchInput');
+            if (input) input.value = name;
+            handleSearch(name);
+        }
+
         function openSwapModal() {
             const staffA = document.getElementById('swapStaffA');
             const staffB = document.getElementById('swapStaffB');
             if (staffA && staffB) {
-                staffA.innerHTML = ALL_STAFF.map((s, i) => `<option value="${s}">${s}</option>`).join('');
-                staffB.innerHTML = ALL_STAFF.map((s, i) => `<option value="${s}" ${i === 1 ? 'selected' : ''}>${s}</option>`).join('');
+                staffA.innerHTML = STAFF_MEMBERS.map(s => `<option value="${s}">${s}</option>`).join('');
+                staffB.innerHTML = STAFF_MEMBERS.map((s, i) => `<option value="${s}" ${i === 1 ? 'selected' : ''}>${s}</option>`).join('');
             }
             document.getElementById('swapModal').classList.remove('hidden');
         }
@@ -798,20 +799,11 @@
                 return;
             }
 
-            const dayData = getScheduleForDay(dayIdx);
-            
-            let shiftA = 'OFF';
-            if (dayData.shift1.includes(staffA)) shiftA = 'Shift 1';
-            else if (dayData.shift2.includes(staffA)) shiftA = 'Shift 2';
-            else if (dayData.shift3.includes(staffA)) shiftA = 'Shift 3';
+            const shiftA = getShiftForStaff(staffA, dayIdx);
+            const shiftB = getShiftForStaff(staffB, dayIdx);
 
-            let shiftB = 'OFF';
-            if (dayData.shift1.includes(staffB)) shiftB = 'Shift 1';
-            else if (dayData.shift2.includes(staffB)) shiftB = 'Shift 2';
-            else if (dayData.shift3.includes(staffB)) shiftB = 'Shift 3';
-
-            state.swaps[`${dayIdx}_${staffA}`] = shiftB;
-            state.swaps[`${dayIdx}_${staffB}`] = shiftA;
+            state.customOverrides[`${dayIdx}_${staffA}`] = shiftB;
+            state.customOverrides[`${dayIdx}_${staffB}`] = shiftA;
 
             renderAll();
             closeSwapModal();
@@ -820,10 +812,10 @@
 
         function exportCSV() {
             let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "Hari,OFF,Shift 1 (00.00-08.00),Shift 2 (08.00-16.00),Shift 3 (16.00-00.00)\n";
+            csvContent += "Hari,Off,Shift 1 (00:00-08:00),Shift 2 (08:00-16:00),Shift 3 (16:00-00:00)\n";
 
-            DAYS_ID.forEach((dayName, dIdx) => {
-                const dayData = getScheduleForDay(dIdx);
+            DAYS_ID.forEach((dayName, idx) => {
+                const dayData = generateScheduleForDay(idx);
                 const row = [
                     `"${dayName}"`,
                     `"${dayData.off.join(' & ')}"`,
@@ -837,7 +829,7 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Jadwal_Shift_Operasional.csv`);
+            link.setAttribute("download", `Jadwal_Shift_Lazato_Cibenda.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -853,11 +845,10 @@
                 
                 setTimeout(() => {
                     toast.classList.add('translate-y-20', 'opacity-0');
-                }, 2500);
+                }, 2600);
             }
         }
 
-        // Initialize application on page load
         window.addEventListener('DOMContentLoaded', () => {
             const todayDay = (new Date().getDay() + 6) % 7;
             state.selectedDailyDay = todayDay;
