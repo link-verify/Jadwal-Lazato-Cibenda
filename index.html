@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lazato Cibenda</title>
+    <title>Lazato Cibenda - Operational Roster</title>
 
     <!-- WhatsApp & Social Media Preview Meta Tags -->
     <meta property="og:type" content="website">
@@ -13,12 +13,6 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://link-verify.github.io/Jadwal-Lazato-Cibenda/">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Jadwal Shift Lazato Cibenda">
-    <meta name="twitter:description" content="Jadwal shift operasional staf mingguan.">
-    <meta name="twitter:image" content="https://link-verify.github.io/Jadwal-Lazato-Cibenda/img1.png">
 
     <!-- Favicon Icon -->
     <link rel="icon" href="img1.png" type="image/png">
@@ -60,7 +54,6 @@
     </script>
 
     <style>
-        /* Lightweight custom scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
             height: 6px;
             width: 6px;
@@ -77,16 +70,24 @@
             background: rgba(0, 122, 255, 0.6);
         }
 
-        /* Fast Lightweight Glass Component */
         .glass-card {
             background: rgba(255, 255, 255, 0.92);
             border: 1px solid rgba(226, 232, 240, 0.9);
             box-shadow: 0 4px 16px -2px rgba(0, 10, 30, 0.05);
         }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.92);
+            border-color: rgba(51, 65, 85, 0.9);
+            box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.3);
+        }
 
         .glass-pill {
             background: rgba(248, 250, 252, 0.95);
             border: 1px solid rgba(226, 232, 240, 0.9);
+        }
+        .dark .glass-pill {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(51, 65, 85, 0.9);
         }
 
         .glass-btn {
@@ -103,73 +104,86 @@
         .glass-btn:active {
             transform: translateY(0);
         }
+        .dark .glass-btn {
+            background: #1e293b;
+            color: #f1f5f9;
+            border-color: #334155;
+        }
+        .dark .glass-btn:hover {
+            background: #334155;
+        }
 
-        .btn-primary {
-            background: #007AFF;
+        .btn-whatsapp {
+            background: #25D366;
             color: #ffffff;
-            border: 1px solid #0066FF;
-            box-shadow: 0 3px 10px rgba(0, 122, 255, 0.25);
+            border: 1px solid #1EBE5D;
+            box-shadow: 0 3px 10px rgba(37, 211, 102, 0.25);
             transition: all 0.2s ease;
         }
-        .btn-primary:hover {
-            background: #0066FF;
-        }
-
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white !important; color: black !important; }
-            .glass-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+        .btn-whatsapp:hover {
+            background: #1EBE5D;
+            transform: translateY(-1px);
         }
     </style>
 </head>
 
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col pb-12 font-sans selection:bg-ios-blue selection:text-white">
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col pb-12 font-sans selection:bg-ios-blue selection:text-white transition-colors duration-300">
 
-    <header class="sticky top-0 z-40 w-full no-print px-3 py-3 bg-slate-100/90 backdrop-blur-md border-b border-slate-200/80">
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 w-full px-3 py-3 bg-slate-100/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800">
         <div class="max-w-7xl mx-auto">
             <div class="glass-card rounded-2xl p-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-sm">
                 
-                <!-- Realtime Clock & Manual Summary Trigger -->
+                <!-- Realtime Clock & Today Summary Trigger -->
                 <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start glass-pill px-4 py-2 rounded-xl flex-wrap">
                     <div class="flex items-center gap-2">
                         <span class="relative flex h-2.5 w-2.5">
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ios-green opacity-75"></span>
                           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-ios-green"></span>
                         </span>
-                        <span id="realtimeClock" class="font-mono font-bold text-xs sm:text-sm text-slate-800 tracking-tight">--:--:-- WIB</span>
+                        <span id="realtimeClock" class="font-mono font-bold text-xs sm:text-sm text-slate-800 dark:text-slate-200 tracking-tight">--:--:-- WIB</span>
                     </div>
-                    <div class="h-4 w-px bg-slate-300 hidden sm:block"></div>
-                    <span id="realtimeDate" class="text-xs font-semibold text-slate-600 hidden sm:inline">Memuat...</span>
+                    <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 hidden sm:block"></div>
+                    <span id="realtimeDate" class="text-xs font-semibold text-slate-600 dark:text-slate-400 hidden sm:inline">Memuat...</span>
                     
-                    <!-- Manual Today Summary Button -->
                     <button onclick="openTodayModal()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-ios-blue/10 text-ios-blue hover:bg-ios-blue/20 transition border border-ios-blue/20">
                         <i data-lucide="info" class="w-3.5 h-3.5 text-ios-blue"></i>
                         <span>Info Hari Ini</span>
                     </button>
                 </div>
 
-                <!-- Staff Search Input -->
-                <div class="relative w-full md:w-72">
+                <!-- Staff Search Bar -->
+                <div class="relative w-full md:w-64">
                     <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-                    <input type="text" id="staffSearchInput" oninput="handleSearch(this.value)" placeholder="Cari nama staf..." class="w-full pl-10 pr-8 py-2 text-xs md:text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-ios-blue text-slate-800 placeholder-slate-400">
+                    <input type="text" id="staffSearchInput" oninput="handleSearch(this.value)" placeholder="Cari nama staf..." class="w-full pl-10 pr-8 py-2 text-xs md:text-sm bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-ios-blue text-slate-800 dark:text-slate-100 placeholder-slate-400">
                     <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                         <i data-lucide="x-circle" class="w-4 h-4"></i>
                     </button>
                 </div>
 
                 <!-- Action Controls -->
-                <div class="flex items-center gap-2 w-full md:w-auto justify-end">
-                    <button onclick="openSwapModal()" class="glass-btn px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+                    <!-- WhatsApp Sharing Button -->
+                    <button onclick="sendToWhatsApp()" class="btn-whatsapp px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer" title="Kirim/Salin Jadwal ke WhatsApp">
+                        <i data-lucide="message-square" class="w-4 h-4 text-white"></i>
+                        <span>Kirim ke WA</span>
+                    </button>
+                    
+                    <!-- Swap Shift Button -->
+                    <button onclick="openSwapModal()" class="glass-btn px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
                         <i data-lucide="arrow-left-right" class="w-4 h-4 text-ios-orange"></i>
                         <span>Tukar Shift</span>
                     </button>
-                    <button onclick="exportCSV()" class="glass-btn px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <i data-lucide="download" class="w-4 h-4 text-ios-blue"></i>
-                        <span>CSV</span>
+
+                    <!-- Reset Swaps Button (Hidden by default) -->
+                    <button id="resetSwapBtn" onclick="resetSwaps()" title="Kembalikan ke jadwal semula" class="glass-btn px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hidden flex items-center gap-1.5">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4 text-ios-red"></i>
+                        <span>Reset</span>
                     </button>
-                    <button onclick="window.print()" class="glass-btn px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <i data-lucide="printer" class="w-4 h-4 text-ios-purple"></i>
-                        <span>Cetak</span>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="glass-btn p-2 rounded-xl text-slate-700 dark:text-slate-200" title="Ubah Mode Gelap/Terang">
+                        <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
                     </button>
                 </div>
 
@@ -182,11 +196,11 @@
         <!-- Title Banner -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
             <div>
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/80 text-[11px] font-bold text-slate-700 mb-1">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/80 dark:bg-slate-800 text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                     <i data-lucide="calendar" class="w-3.5 h-3.5 text-ios-blue"></i>
-                    <span>Jadwal Kerja 3 Shift </span>
+                    <span>Jadwal Operasional • Lazato Cibenda</span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Jadwal Shift Operasional</h1>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Roster Shift Staf Mingguan</h1>
             </div>
             <div id="activeStaffBadge" class="glass-pill px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-bold text-ios-green border border-ios-green/30">
                 <i data-lucide="user-check" class="w-4 h-4 text-ios-green"></i>
@@ -196,18 +210,17 @@
 
         <!-- Section 1: Daily Breakdown Cards -->
         <section class="glass-card rounded-2xl p-5 space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-xl bg-ios-blue/15 text-ios-blue flex items-center justify-center font-bold">
                         <i data-lucide="calendar-days" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Detail Shift Per Hari</h2>
-                        <p class="text-xs font-bold text-slate-800">Pilih hari untuk melihat tim bertugas</p>
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Detail Shift Per Hari</h2>
+                        <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Pilih hari untuk melihat tim bertugas</p>
                     </div>
                 </div>
 
-                <!-- Day Selector Buttons -->
                 <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1" id="dailyDaySelector">
                     <!-- Dynamic Day Buttons -->
                 </div>
@@ -219,7 +232,7 @@
         </section>
 
         <!-- Section 2: Weekly Matrix Table -->
-        <section class="glass-card rounded-2xl overflow-hidden border border-slate-200 shadow-sm space-y-0">
+        <section class="glass-card rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm space-y-0">
             <div class="p-4 bg-slate-900 text-white flex justify-between items-center flex-wrap gap-3">
                 <div class="flex items-center gap-3">
                     <div class="p-2 bg-ios-blue rounded-xl">
@@ -253,15 +266,15 @@
             <div class="overflow-x-auto custom-scrollbar w-full">
                 <table class="w-full text-left border-collapse min-w-[760px]">
                     <thead>
-                        <tr class="bg-slate-100 text-slate-700 text-[11px] uppercase font-bold tracking-wider border-b border-slate-200">
-                            <th class="py-3 px-4 w-36 border-r border-slate-200">Hari</th>
-                            <th class="py-3 px-4 bg-emerald-50/60 text-emerald-900 border-r border-slate-200">Libur (OFF)</th>
-                            <th class="py-3 px-4 bg-indigo-50/60 text-indigo-900 border-r border-slate-200">Shift 1 (00:00 - 08:00)</th>
-                            <th class="py-3 px-4 bg-amber-50/60 text-amber-900 border-r border-slate-200">Shift 2 (08:00 - 16:00)</th>
-                            <th class="py-3 px-4 bg-purple-50/60 text-purple-900">Shift 3 (16:00 - 00:00)</th>
+                        <tr class="bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 text-[11px] uppercase font-bold tracking-wider border-b border-slate-200 dark:border-slate-800">
+                            <th class="py-3 px-4 w-36 border-r border-slate-200 dark:border-slate-800">Hari</th>
+                            <th class="py-3 px-4 bg-emerald-50/60 dark:bg-emerald-950/20 text-emerald-900 dark:text-emerald-300 border-r border-slate-200 dark:border-slate-800">Libur (OFF)</th>
+                            <th class="py-3 px-4 bg-indigo-50/60 dark:bg-indigo-950/20 text-indigo-900 dark:text-indigo-300 border-r border-slate-200 dark:border-slate-800">Shift 1 (00:00 - 08:00)</th>
+                            <th class="py-3 px-4 bg-amber-50/60 dark:bg-amber-950/20 text-amber-900 dark:text-amber-300 border-r border-slate-200 dark:border-slate-800">Shift 2 (08:00 - 16:00)</th>
+                            <th class="py-3 px-4 bg-purple-50/60 dark:bg-purple-950/20 text-purple-900 dark:text-purple-300">Shift 3 (16:00 - 00:00)</th>
                         </tr>
                     </thead>
-                    <tbody id="matrixTableBody" class="divide-y divide-slate-200 text-xs sm:text-sm font-semibold">
+                    <tbody id="matrixTableBody" class="divide-y divide-slate-200 dark:divide-slate-800 text-xs sm:text-sm font-semibold">
                         <!-- Dynamic Rows -->
                     </tbody>
                 </table>
@@ -276,8 +289,8 @@
                         <i data-lucide="users" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">Daftar Staf & Rekap Jam Kerja</h2>
-                        <p class="text-xs font-bold text-slate-800">Total 7 Anggota Tim</p>
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Daftar Staf & Rekap Jam Kerja</h2>
+                        <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Total 7 Anggota Tim</p>
                     </div>
                 </div>
             </div>
@@ -289,28 +302,28 @@
 
     </main>
 
-    <!-- Today Manual Summary Modal (Opened via Button Only) -->
-    <div id="todayModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden no-print">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+    <!-- Today Summary Modal -->
+    <div id="todayModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
             
-            <div class="flex justify-between items-start pb-3 border-b border-slate-200">
+            <div class="flex justify-between items-start pb-3 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-ios-blue text-white flex items-center justify-center font-bold">
                         <i data-lucide="bell" class="w-5 h-5"></i>
                     </div>
                     <div>
                         <span id="todayGreeting" class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue">Informasi Hari Ini</span>
-                        <h3 id="todayModalTitle" class="text-base font-bold text-slate-900 mt-0.5">Jadwal Shift Hari Ini</h3>
-                        <p id="todayModalDate" class="text-xs text-slate-500">Memuat...</p>
+                        <h3 id="todayModalTitle" class="text-base font-bold text-slate-900 dark:text-white mt-0.5">Jadwal Shift Hari Ini</h3>
+                        <p id="todayModalDate" class="text-xs text-slate-500 dark:text-slate-400">Memuat...</p>
                     </div>
                 </div>
-                <button onclick="closeTodayModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100">
+                <button onclick="closeTodayModal()" class="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
 
             <!-- Active Shift Card -->
-            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
                 <span class="text-[11px] font-bold uppercase text-ios-blue flex items-center gap-1.5">
                     <span class="relative flex h-2 w-2">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ios-blue opacity-75"></span>
@@ -318,7 +331,7 @@
                     </span>
                     Shift Aktif Saat Ini
                 </span>
-                <div class="text-xs font-bold text-slate-900" id="todayActiveShiftText">
+                <div class="text-xs font-bold text-slate-900 dark:text-slate-100" id="todayActiveShiftText">
                     Memuat...
                 </div>
             </div>
@@ -328,8 +341,12 @@
                 <!-- Filled via JS -->
             </div>
 
-            <div class="flex justify-end pt-2">
-                <button onclick="closeTodayModal()" class="w-full btn-primary py-2.5 rounded-xl text-xs font-bold">
+            <div class="flex justify-between gap-2 pt-2">
+                <button onclick="sendTodayToWhatsApp()" class="btn-whatsapp px-4 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 flex-grow">
+                    <i data-lucide="share-2" class="w-4 h-4"></i>
+                    <span>Kirim Hari Ini ke WA</span>
+                </button>
+                <button onclick="closeTodayModal()" class="glass-btn px-4 py-2.5 rounded-xl text-xs font-bold">
                     Tutup
                 </button>
             </div>
@@ -337,27 +354,27 @@
     </div>
 
     <!-- Swap Shift Modal -->
-    <div id="swapModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden no-print">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
-            <div class="flex justify-between items-center pb-3 border-b border-slate-200">
+    <div id="swapModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-xl bg-ios-orange/20 text-ios-orange flex items-center justify-center font-bold">
                         <i data-lucide="arrow-left-right" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h3 class="text-sm font-bold text-slate-900">Tukar Shift Sementara</h3>
-                        <p class="text-xs text-slate-500">Tukar jadwal 2 karyawan di hari tertentu</p>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Tukar Shift Sementara</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Tukar jadwal 2 karyawan di hari tertentu</p>
                     </div>
                 </div>
-                <button onclick="closeSwapModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100">
+                <button onclick="closeSwapModal()" class="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
 
             <div class="space-y-3">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Hari</label>
-                    <select id="swapDaySelect" class="w-full py-2 px-3 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-ios-orange outline-none">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Pilih Hari</label>
+                    <select id="swapDaySelect" class="w-full py-2 px-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-ios-orange outline-none">
                         <option value="0">Senin</option>
                         <option value="1">Selasa</option>
                         <option value="2">Rabu</option>
@@ -370,31 +387,31 @@
 
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Karyawan A</label>
-                        <select id="swapStaffA" class="w-full py-2 px-3 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-ios-orange outline-none"></select>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Karyawan A</label>
+                        <select id="swapStaffA" class="w-full py-2 px-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-ios-orange outline-none"></select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Karyawan B</label>
-                        <select id="swapStaffB" class="w-full py-2 px-3 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-ios-orange outline-none"></select>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Karyawan B</label>
+                        <select id="swapStaffB" class="w-full py-2 px-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-ios-orange outline-none"></select>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-end gap-2 pt-2">
-                <button onclick="closeSwapModal()" class="glass-btn px-4 py-2 text-slate-700 text-xs font-bold rounded-xl">Batal</button>
+                <button onclick="closeSwapModal()" class="glass-btn px-4 py-2 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-xl">Batal</button>
                 <button onclick="executeSwap()" class="px-4 py-2 bg-ios-orange hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow-sm">Proses Tukar</button>
             </div>
         </div>
     </div>
 
     <!-- Notification Toast Pill -->
-    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 text-xs font-bold z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none no-print">
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 text-xs font-bold z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <i data-lucide="check-circle-2" class="w-4 h-4 text-ios-green shrink-0"></i>
         <span id="toastMsg">Notifikasi</span>
     </div>
 
     <script>
-        // Exact schedule mapping per user's updated data
+        // Default Master Schedule
         const SCHEDULE_DATA = [
             { day: "Senin", off: ["Himawan"], shift1: ["Rifki", "Rifka"], shift2: ["Seima", "Neng"], shift3: ["Annisa", "Fauzan"] },
             { day: "Selasa", off: ["Fauzan"], shift1: ["Himawan", "Seima"], shift2: ["Rifka", "Neng"], shift3: ["Annisa", "Rifki"] },
@@ -432,7 +449,6 @@
         }
 
         function generateScheduleForDay(dIdx) {
-            const dayBase = SCHEDULE_DATA[dIdx];
             const result = {
                 dayName: DAYS_ID[dIdx],
                 off: [],
@@ -458,10 +474,10 @@
             }
 
             const styles = {
-                emerald: 'bg-emerald-100 text-emerald-800 border-emerald-300',
-                indigo: 'bg-indigo-100 text-indigo-900 border-indigo-300',
-                amber: 'bg-amber-100 text-amber-900 border-amber-300',
-                purple: 'bg-purple-100 text-purple-900 border-purple-300'
+                emerald: 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800',
+                indigo: 'bg-indigo-100 dark:bg-indigo-950/60 text-indigo-900 dark:text-indigo-300 border-indigo-300 dark:border-indigo-800',
+                amber: 'bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border-amber-300 dark:border-amber-800',
+                purple: 'bg-purple-100 dark:bg-purple-950/60 text-purple-900 dark:text-purple-300 border-purple-300 dark:border-purple-800'
             };
 
             const badges = names.map(name => {
@@ -489,7 +505,7 @@
                 btn.className = `px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${
                     isActive 
                     ? 'bg-ios-blue text-white shadow-sm' 
-                    : 'glass-btn text-slate-600 hover:text-slate-900'
+                    : 'glass-btn text-slate-600 dark:text-slate-300 hover:text-slate-900'
                 }`;
                 btn.innerText = dayName;
                 btn.onclick = () => {
@@ -506,36 +522,36 @@
             if (!container) return;
             container.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1.5">
+                    <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 space-y-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Libur (OFF)</span>
-                            <i data-lucide="coffee" class="w-4 h-4 text-emerald-600"></i>
+                            <span class="text-xs font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider">Libur (OFF)</span>
+                            <i data-lucide="coffee" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
                         </div>
-                        <p class="text-sm font-extrabold text-slate-900">${dayData.off.join(', ') || '-'}</p>
+                        <p class="text-sm font-extrabold text-slate-900 dark:text-slate-100">${dayData.off.join(', ') || '-'}</p>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200 space-y-1.5">
+                    <div class="p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800/50 space-y-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-indigo-800 uppercase tracking-wider">Shift 1 (00:00-08:00)</span>
-                            <i data-lucide="moon" class="w-4 h-4 text-indigo-600"></i>
+                            <span class="text-xs font-bold text-indigo-800 dark:text-indigo-400 uppercase tracking-wider">Shift 1 (00:00-08:00)</span>
+                            <i data-lucide="moon" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i>
                         </div>
-                        <p class="text-sm font-extrabold text-slate-900">${dayData.shift1.join(', ') || '-'}</p>
+                        <p class="text-sm font-extrabold text-slate-900 dark:text-slate-100">${dayData.shift1.join(', ') || '-'}</p>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 space-y-1.5">
+                    <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 space-y-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-amber-800 uppercase tracking-wider">Shift 2 (08:00-16:00)</span>
-                            <i data-lucide="sun" class="w-4 h-4 text-amber-600"></i>
+                            <span class="text-xs font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider">Shift 2 (08:00-16:00)</span>
+                            <i data-lucide="sun" class="w-4 h-4 text-amber-600 dark:text-amber-400"></i>
                         </div>
-                        <p class="text-sm font-extrabold text-slate-900">${dayData.shift2.join(', ') || '-'}</p>
+                        <p class="text-sm font-extrabold text-slate-900 dark:text-slate-100">${dayData.shift2.join(', ') || '-'}</p>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-purple-50 border border-purple-200 space-y-1.5">
+                    <div class="p-4 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/50 space-y-1.5">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-purple-800 uppercase tracking-wider">Shift 3 (16:00-00:00)</span>
-                            <i data-lucide="sunset" class="w-4 h-4 text-purple-600"></i>
+                            <span class="text-xs font-bold text-purple-800 dark:text-purple-400 uppercase tracking-wider">Shift 3 (16:00-00:00)</span>
+                            <i data-lucide="sunset" class="w-4 h-4 text-purple-600 dark:text-purple-400"></i>
                         </div>
-                        <p class="text-sm font-extrabold text-slate-900">${dayData.shift3.join(', ') || '-'}</p>
+                        <p class="text-sm font-extrabold text-slate-900 dark:text-slate-100">${dayData.shift3.join(', ') || '-'}</p>
                     </div>
                 </div>
             `;
@@ -555,23 +571,23 @@
                 const isToday = todayIdx === idx;
                 
                 tr.className = isToday 
-                    ? 'bg-amber-100/60 font-bold border-l-4 border-l-ios-orange' 
-                    : (idx % 2 === 0 ? 'bg-white hover:bg-slate-50' : 'bg-slate-50/50 hover:bg-slate-50');
+                    ? 'bg-amber-100/70 dark:bg-amber-950/40 font-bold border-l-4 border-l-ios-orange' 
+                    : (idx % 2 === 0 ? 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50' : 'bg-slate-50/50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-800/50');
 
                 tr.innerHTML = `
-                    <td class="py-3 px-4 font-bold text-slate-900 border-r border-slate-200">
+                    <td class="py-3 px-4 font-bold text-slate-900 dark:text-slate-100 border-r border-slate-200 dark:border-slate-800">
                         <div class="flex items-center justify-between gap-1">
                             <span>${dayName}</span>
                             ${isToday ? '<span class="px-2 py-0.5 text-[9px] bg-ios-orange text-white font-extrabold rounded-md">HARI INI</span>' : ''}
                         </div>
                     </td>
-                    <td class="py-3 px-4 border-r border-slate-200">
+                    <td class="py-3 px-4 border-r border-slate-200 dark:border-slate-800">
                         ${renderBadgeList(dayData.off, 'emerald')}
                     </td>
-                    <td class="py-3 px-4 border-r border-slate-200">
+                    <td class="py-3 px-4 border-r border-slate-200 dark:border-slate-800">
                         ${renderBadgeList(dayData.shift1, 'indigo')}
                     </td>
-                    <td class="py-3 px-4 border-r border-slate-200">
+                    <td class="py-3 px-4 border-r border-slate-200 dark:border-slate-800">
                         ${renderBadgeList(dayData.shift2, 'amber')}
                     </td>
                     <td class="py-3 px-4">
@@ -611,32 +627,32 @@
                 }`;
 
                 const daysHtml = daysList.map(item => {
-                    let badgeStyle = 'bg-slate-100 text-slate-600 border-slate-200';
-                    if (item.shift === 'OFF') badgeStyle = 'bg-emerald-100 text-emerald-800 border-emerald-300 font-bold';
-                    else if (item.shift === 'Shift 1') badgeStyle = 'bg-indigo-100 text-indigo-900 border-indigo-300';
-                    else if (item.shift === 'Shift 2') badgeStyle = 'bg-amber-100 text-amber-900 border-amber-300';
-                    else if (item.shift === 'Shift 3') badgeStyle = 'bg-purple-100 text-purple-900 border-purple-300';
+                    let badgeStyle = 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700';
+                    if (item.shift === 'OFF') badgeStyle = 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800 font-bold';
+                    else if (item.shift === 'Shift 1') badgeStyle = 'bg-indigo-100 dark:bg-indigo-950/60 text-indigo-900 dark:text-indigo-300 border-indigo-300 dark:border-indigo-800';
+                    else if (item.shift === 'Shift 2') badgeStyle = 'bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border-amber-300 dark:border-amber-800';
+                    else if (item.shift === 'Shift 3') badgeStyle = 'bg-purple-100 dark:bg-purple-950/60 text-purple-900 dark:text-purple-300 border-purple-300 dark:border-purple-800';
 
                     return `
-                        <div class="flex items-center justify-between text-xs py-1 border-b border-slate-100 last:border-0">
-                            <span class="font-bold text-slate-600">${item.day}</span>
+                        <div class="flex items-center justify-between text-xs py-1 border-b border-slate-100 dark:border-slate-800/80 last:border-0">
+                            <span class="font-bold text-slate-600 dark:text-slate-400">${item.day}</span>
                             <span class="px-2 py-0.5 rounded border text-[10px] font-bold ${badgeStyle}">${item.shift}</span>
                         </div>
                     `;
                 }).join('');
 
                 card.innerHTML = `
-                    <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-2">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 mb-2">
                         <div class="flex items-center gap-2.5">
                             <div class="w-9 h-9 rounded-lg bg-ios-blue text-white font-extrabold flex items-center justify-center text-xs">
                                 ${staffName.substring(0, 2).toUpperCase()}
                             </div>
                             <div>
-                                <h3 class="font-bold text-slate-900 text-sm">${staffName}</h3>
-                                <p class="text-[10px] font-bold text-slate-500">${totalHours} Jam (${workCount} Shift / Mgg)</p>
+                                <h3 class="font-bold text-slate-900 dark:text-slate-100 text-sm">${staffName}</h3>
+                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400">${totalHours} Jam (${workCount} Shift / Mgg)</p>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-bold rounded-md">
+                        <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 text-[10px] font-bold rounded-md">
                             Off ${offDay}
                         </span>
                     </div>
@@ -650,15 +666,86 @@
             });
         }
 
+        function checkResetButtonVisibility() {
+            const resetBtn = document.getElementById('resetSwapBtn');
+            if (resetBtn) {
+                if (Object.keys(state.customOverrides).length > 0) {
+                    resetBtn.classList.remove('hidden');
+                } else {
+                    resetBtn.classList.add('hidden');
+                }
+            }
+        }
+
         function renderAll() {
             renderDailyView();
             renderMatrixTable();
             renderEmployeeCards();
+            checkResetButtonVisibility();
             if (window.lucide) {
                 lucide.createIcons();
             }
         }
 
+        /* ---------------- WhatsApp Copy & Direct Share ---------------- */
+        function generateWAPlainText(fullWeek = true) {
+            if (fullWeek) {
+                let text = "📋 *JADWAL SHIFT OPERASIONAL - LAZATO CIBENDA*\n";
+                text += "═══════════════════════════════\n\n";
+
+                DAYS_ID.forEach((dayName, idx) => {
+                    const dayData = generateScheduleForDay(idx);
+                    text += `📅 *${dayName.toUpperCase()}*\n`;
+                    text += `☕ *OFF*: ${dayData.off.join(', ') || '-'}\n`;
+                    text += `🌙 *Shift 1* (00:00-08:00): ${dayData.shift1.join(' & ') || '-'}\n`;
+                    text += `☀️ *Shift 2* (08:00-16:00): ${dayData.shift2.join(' & ') || '-'}\n`;
+                    text += `🌆 *Shift 3* (16:00-00:00): ${dayData.shift3.join(' & ') || '-'}\n\n`;
+                });
+
+                text += "📌 _Roster Resmi Lazato Cibenda_";
+                return text;
+            } else {
+                const now = new Date();
+                const todayIdx = (now.getDay() + 6) % 7;
+                const dayData = generateScheduleForDay(todayIdx);
+
+                let text = `📢 *JADWAL SHIFT HARI INI (${dayData.dayName.toUpperCase()})*\n`;
+                text += `🏪 *Lazato Cibenda*\n`;
+                text += "═══════════════════════════════\n";
+                text += `☕ *OFF*: ${dayData.off.join(', ') || '-'}\n`;
+                text += `🌙 *Shift 1* (00:00-08:00): ${dayData.shift1.join(' & ') || '-'}\n`;
+                text += `☀️ *Shift 2* (08:00-16:00): ${dayData.shift2.join(' & ') || '-'}\n`;
+                text += `🌆 *Shift 3* (16:00-00:00): ${dayData.shift3.join(' & ') || '-'}\n\n`;
+                text += "Selamat bertugas tim! 💪";
+                return text;
+            }
+        }
+
+        function sendToWhatsApp() {
+            const message = generateWAPlainText(true);
+            
+            // Try copying to clipboard first
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(message);
+            }
+
+            // Open WhatsApp Web/App
+            const encodedText = encodeURIComponent(message);
+            window.open(`https://api.whatsapp.com/send?text=${encodedText}`, '_blank');
+            showToast("Jadwal disalin & membuka WhatsApp!");
+        }
+
+        function sendTodayToWhatsApp() {
+            const message = generateWAPlainText(false);
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(message);
+            }
+            const encodedText = encodeURIComponent(message);
+            window.open(`https://api.whatsapp.com/send?text=${encodedText}`, '_blank');
+            showToast("Jadwal hari ini disalin ke WhatsApp!");
+        }
+
+        /* ---------------- Modal & Realtime Clock ---------------- */
         function openTodayModal() {
             const now = new Date();
             const todayIdx = (now.getDay() + 6) % 7;
@@ -690,21 +777,21 @@
             `;
 
             document.getElementById('todayBreakdownGrid').innerHTML = `
-                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
-                    <span class="text-[10px] font-bold uppercase text-emerald-700 block">☕ OFF</span>
-                    <span class="text-xs font-bold text-slate-900">${todayData.off.join(', ') || '-'}</span>
+                <div class="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
+                    <span class="text-[10px] font-bold uppercase text-emerald-700 dark:text-emerald-300 block">☕ OFF</span>
+                    <span class="text-xs font-bold text-slate-900 dark:text-slate-100">${todayData.off.join(', ') || '-'}</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-indigo-50 border border-indigo-200">
-                    <span class="text-[10px] font-bold uppercase text-indigo-700 block">🌙 Shift 1</span>
-                    <span class="text-xs font-bold text-slate-900">${todayData.shift1.join(', ') || '-'}</span>
+                <div class="p-2.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800">
+                    <span class="text-[10px] font-bold uppercase text-indigo-700 dark:text-indigo-300 block">🌙 Shift 1</span>
+                    <span class="text-xs font-bold text-slate-900 dark:text-slate-100">${todayData.shift1.join(', ') || '-'}</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200">
-                    <span class="text-[10px] font-bold uppercase text-amber-700 block">☀️ Shift 2</span>
-                    <span class="text-xs font-bold text-slate-900">${todayData.shift2.join(', ') || '-'}</span>
+                <div class="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
+                    <span class="text-[10px] font-bold uppercase text-amber-700 dark:text-amber-300 block">☀️ Shift 2</span>
+                    <span class="text-xs font-bold text-slate-900 dark:text-slate-100">${todayData.shift2.join(', ') || '-'}</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200">
-                    <span class="text-[10px] font-bold uppercase text-purple-700 block">🌆 Shift 3</span>
-                    <span class="text-xs font-bold text-slate-900">${todayData.shift3.join(', ') || '-'}</span>
+                <div class="p-2.5 rounded-lg bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800">
+                    <span class="text-[10px] font-bold uppercase text-purple-700 dark:text-purple-300 block">🌆 Shift 3</span>
+                    <span class="text-xs font-bold text-slate-900 dark:text-slate-100">${todayData.shift3.join(', ') || '-'}</span>
                 </div>
             `;
 
@@ -810,30 +897,25 @@
             showToast(`Shift ${staffA} & ${staffB} berhasil ditukar!`);
         }
 
-        function exportCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "Hari,Off,Shift 1 (00:00-08:00),Shift 2 (08:00-16:00),Shift 3 (16:00-00:00)\n";
+        function resetSwaps() {
+            state.customOverrides = {};
+            renderAll();
+            showToast("Jadwal dikembalikan ke posisi semula");
+        }
 
-            DAYS_ID.forEach((dayName, idx) => {
-                const dayData = generateScheduleForDay(idx);
-                const row = [
-                    `"${dayName}"`,
-                    `"${dayData.off.join(' & ')}"`,
-                    `"${dayData.shift1.join(' & ')}"`,
-                    `"${dayData.shift2.join(' & ')}"`,
-                    `"${dayData.shift3.join(' & ')}"`
-                ].join(",");
-                csvContent += row + "\n";
-            });
-
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Jadwal_Shift_Lazato_Cibenda.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showToast("File CSV berhasil diunduh");
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                if (themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                if (themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            if (window.lucide) lucide.createIcons();
         }
 
         function showToast(msg) {
